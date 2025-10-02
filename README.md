@@ -39,7 +39,8 @@ And open a [pull request](https://github.com/BenArthurs/devops/pulls)
 When creating the pull request:
 - base: develop
 - compare: feature/myfeature
-- Complete any other info as best as you can, such as, project, milestone, etc.  
+- Complete any other info as best as you can, such as, project, milestone, etc.
+- After the pull request has been created, ask a colleague for a peer review if possible
 ### <ins>**Do never push directly to Develop, Main or Release**</ins>
 
 ## Group 4 - Friday - 11am
