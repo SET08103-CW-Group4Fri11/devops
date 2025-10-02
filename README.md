@@ -7,7 +7,8 @@
     <li><a href="#getting-started">Getting Started</a></li>
     <li><a href="#how-to-work-on-features">How to work on Features</a></li>
 </ol>
-</details>
+</details>  
+  
 ## About
 This repository contains the coursework for the Software Engineering Methods group project
 ## Built with
