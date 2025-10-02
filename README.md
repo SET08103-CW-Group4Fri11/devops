@@ -1,10 +1,12 @@
 # SET08103 - Software Engineering Methods Project
 <details>
 <summary>Table of contents</summary>
-1. [About](#about)
-2. [Built with](#built-with)
-3. [Getting Started](#getting-started)
-4. [How to work on Features](#how-to-work-on-features)
+<ol>
+    <li><a href="#about">About</a></li>
+    <li><a href="#built-with">Built with</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
+    <li><a href="#how-to-work-on-features">How to work on Features</a></li>
+</ol>
 </details>
 ## About
 This repository contains the coursework for the Software Engineering Methods group project
@@ -32,7 +34,7 @@ git pull
 git branch feature/myfeature
 git checkout feature/myfeature
 ```
-After having set up your feature branch do your work making sure you are comitting often.  
+After having set up your feature branch do your work making sure you are commiting often.  
 Once you are happy with your work push it to the repo  
 `git push`
 And open a [pull request](https://github.com/BenArthurs/devops/pulls)  
