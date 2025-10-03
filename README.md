@@ -54,4 +54,4 @@ When creating the pull request:
 - [Matt Harlos](https://github.com/morival)
 
 
-![workflow](https://github.com/BenArthurs/devops/actions/workflows/main.yml/badge.svg)
+![workflow](https://github.com/BenArthurs/devops/actions/workflows/setup.yml/badge.svg)
