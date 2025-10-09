@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  #Build app using the dockerfile located in root, it's assigned to the backend network so it can communicate with the db
+  app:
+    build: .
+    container_name: devops-container
+    depends_on:
+      - db
+    networks:
+      - backend
+  # Build db using the dockerfile, it will seed the db with the world.sql file
+  # Exposing the port in order to access the db
+  db:
+    build: ./db
+    networks:
+      - backend
+    ports:
+      - "33060:3306"
+#We could use the default network, but this is about learning
+networks:
+  backend:
+    #Again, this is the default option but will serve as a reminder
+    driver: bridge
