@@ -100,3 +100,4 @@ When creating the pull request:
 
 
 ![workflow](https://github.com/BenArthurs/devops/actions/workflows/setup.yml/badge.svg)
+![GitHub Release](https://img.shields.io/github/v/release/BenArthurs/devops)
