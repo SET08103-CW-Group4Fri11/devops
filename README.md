@@ -100,5 +100,5 @@ When creating the pull request:
 
 
 ![workflow](https://github.com/BenArthurs/devops/actions/workflows/setup.yml/badge.svg) <br/>
-![GitHub Release](https://img.shields.io/github/v/release/BenArthurs/devops)
-[![LICENSE](https://img.shields.io/github/license/BenArthurs/devops.svg?style=flat-square)](https://github.com/BenArthurs/devops/blob/develop/LICENSE)
+![GitHub Release](https://img.shields.io/github/v/release/BenArthurs/devops) <br/>
+[![License](https://img.shields.io/github/license/BenArthurs/devops.svg)](https://github.com/BenArthurs/devops/blob/develop/LICENSE)
