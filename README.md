@@ -99,4 +99,8 @@ When creating the pull request:
 - [Matt Harlos](https://github.com/morival)
 
 
-![workflow](https://github.com/BenArthurs/devops/actions/workflows/setup.yml/badge.svg)
+### Badges
+![workflow](https://github.com/BenArthurs/devops/actions/workflows/setup.yml/badge.svg) <br/>
+[![GitHub release](https://img.shields.io/github/v/release/BenArthurs/devops.svg)](https://github.com/BenArthurs/devops/releases) <br/>
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
