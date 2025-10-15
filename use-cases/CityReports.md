@@ -23,7 +23,7 @@
 | 6 |  &larr;   | System retrieves and sorts city data by population                                                          |
 | 7 |  &larr;   | System displays report with following columns:<br/> - Name<br/> - Country<br/> - District<br/> - Population |
 
-Flow of Events for Extensions (Alternate Scenarios):
+### Flow of Events for Extensions (Alternate Scenarios):
 
 | #  | Direction | Actor Action &harr; System Response     |
 |----|:---------:|-----------------------------------------|
