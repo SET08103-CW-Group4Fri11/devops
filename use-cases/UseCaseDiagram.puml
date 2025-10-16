@@ -1,0 +1,110 @@
+' =============================================
+' Population Information Access System - Architecture Diagram
+' Purpose: Illustrates the high-level component architecture and data flow
+'          for a system that generates population reports and analytics.
+' =============================================
+
+@startuml
+title Population Information Access System – Components
+
+' --- Styling Commands ---
+' Use clean, rectangular boxes for a modern, technical diagram feel.
+skinparam packageStyle rectangle
+skinparam componentStyle rectangle
+' Disable shadows to reduce visual noise and improve clarity.
+skinparam shadowing false
+' Arrange the layout from left (user) to right (data source).
+left to right direction
+
+' --- External Actor ---
+' The primary user of the system, who interacts via the Graphical User Interface.
+actor "Analyst\n(User)" as User
+
+' --- Application Layer Package ---
+' This package contains all the software components that make up the web application.
+package "Population Information Access App" {
+  ' The main user interface for displaying reports and an interactive data explorer.
+  component "GUI\n(Reports & Explorer)" as GUI
+
+  ' Handles the generation and delivery of report files in various formats.
+  component "Export Module\n(CSV/Excel/PDF)" as Export
+
+  ' Manages user authentication, authorization, and session preferences.
+  component "Auth & Session\n(Role/Prefs)" as Auth
+
+  ' The core orchestration layer. It processes requests and coordinates between other components.
+  component "Application Logic Layer" as Service
+
+  ' Dynamically constructs safe SQL queries based on user-provided parameters (filters, top N, etc.).
+  component "Query Builder\n(param → SQL)" as QBuilder
+
+  ' Performs in-memory data processing that is complex or inefficient in pure SQL (e.g., calculated percentages).
+  component "Transform Layer\n(joins, aggs,\npercentages)" as Transform
+
+  ' Stores frequently accessed, expensive-to-calculate data to improve performance.
+  component "Cache & Views\n(precomputed summaries,\nmaterialized views)" as Cache
+}
+
+' --- Database Layer Node ---
+' Represents the physical database server containing the persistent data.
+node "SQL Database" as DB {
+  ' The raw, normalized tables containing the base population and geographic data.
+  database "Operational Tables\n(Country, City,\nCountryLanguage, ...)" as Tables
+  ' Database-level precomputed tables for complex queries, updated periodically.
+  collections "Materialized Views\n(Precomputed totals,\ncity/non-city splits)" as MViews
+}
+
+' --- Data Flow and Interactions ---
+
+' User initiates all interactions through the GUI.
+User --> GUI : Interact\n(select report,\nset filters, N)
+
+' The GUI ensures the user is authenticated before proceeding.
+GUI --> Auth : Login / load prefs
+
+' After login, the user's report request is sent to the backend logic.
+GUI --> Service : Request report
+
+' The Application Logic uses the Query Builder to create a tailored SQL query.
+Service --> QBuilder : Build SQL (params)
+
+' For some reports, raw SQL results need further processing (e.g., calculate % of total).
+Service --> Transform : Post-process\npercentages/splits
+
+' The Service first checks the Cache for precomputed results to avoid heavy DB loads.
+Service --> Cache : Use precomputed\nif available
+
+' If data isn't cached and requires complex, dynamic joins, it queries the base tables.
+Service --> Tables : SELECT/JOIN\n(when dynamic)
+
+' For pre-defined summaries (like total world population), it uses Materialized Views.
+Service --> MViews : SELECT\n(when precomputed)
+
+' The final, processed dataset is sent back to the GUI for display.
+Service --> GUI : Result set
+
+' The user can request to export the currently displayed data.
+GUI --> Export : Export request
+Export --> GUI : File ready
+
+' --- Explanatory Notes ---
+
+note bottom of Cache
+**Performance Optimization Strategy**
+Precompute at startup or on-demand:
+• World/Continent/Region totals
+• City vs Non-city splits
+• Language share tables
+This reduces database load for common, heavy queries.
+end note
+
+note bottom of QBuilder
+**Query Construction Logic**
+Examples of built queries:
+• Top N globally/by region
+• Capitals only (Country.Capital=City.ID)
+• Sort DESC by Population
+This component helps prevent SQL injection by using parameterized queries.
+end note
+
+@enduml
