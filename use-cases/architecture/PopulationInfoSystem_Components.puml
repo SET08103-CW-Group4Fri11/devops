@@ -1,0 +1,52 @@
+@startuml
+title Population Information Access System – Components
+
+skinparam packageStyle rectangle
+skinparam componentStyle rectangle
+skinparam shadowing false
+left to right direction
+
+actor "Analyst\n(User)" as User
+
+package "Population Information Access App" {
+  component "GUI\n(Reports & Explorer)" as GUI
+  component "Export Module\n(CSV/Excel/PDF)" as Export
+  component "Auth & Session\n(Role/Prefs)" as Auth
+  component "Application Logic Layer" as Service
+  component "Query Builder\n(param → SQL)" as QBuilder
+  component "Transform Layer\n(joins, aggs,\npercentages)" as Transform
+  component "Cache & Views\n(precomputed summaries,\nmaterialized views)" as Cache
+}
+
+node "SQL Database" as DB {
+  database "Operational Tables\n(Country, City,\nCountryLanguage, ...)" as Tables
+  collections "Materialized Views\n(Precomputed totals,\ncity/non-city splits)" as MViews
+}
+
+User --> GUI : Interact\n(select report,\nset filters, N)
+GUI --> Auth : Login / load prefs
+GUI --> Service : Request report
+Service --> QBuilder : Build SQL (params)
+Service --> Transform : Post-process\npercentages/splits
+Service --> Cache : Use precomputed\nif available
+Service --> Tables : SELECT/JOIN\n(when dynamic)
+Service --> MViews : SELECT\n(when precomputed)
+Service --> GUI : Result set
+GUI --> Export : Export request
+Export --> GUI : File ready
+
+note bottom of Cache
+Precompute at startup or on-demand:
+• World/Continent/Region totals
+• City vs Non-city splits
+• Language share tables
+end note
+
+note bottom of QBuilder
+Examples:
+• Top N globally/by region
+• Capitals only (Country.Capital=City.ID)
+• Sort DESC by Population
+end note
+
+@enduml

@@ -1,0 +1,32 @@
+@startuml
+title Sequence – Top N populated capital cities in a region
+
+actor Analyst
+participant "GUI" as GUI
+participant "Application Logic" as Svc
+participant "Query Builder" as QB
+participant "Transform Layer" as TL
+database "SQL DB" as DB
+
+Analyst -> GUI: Select report:\n“Top N capitals in Region”
+GUI -> Analyst: Prompt for Region + N
+Analyst -> GUI: Enter Region = "Western Europe", N = 10
+
+GUI -> Svc: getTopNCapitalsByRegion("Western Europe", 10)
+Svc -> QB: buildSQL(params)
+QB --> Svc: SQL (JOIN Country→City,\nfilter Region, capitals only,\nORDER BY Population DESC, LIMIT 10)
+
+Svc -> DB: Execute SQL
+DB --> Svc: Rowset (City, Country,\nDistrict, Population)
+
+Svc -> TL: compute percentages,\nformat numbers (optional)
+TL --> Svc: Enriched dataset
+
+Svc --> GUI: Result table (10 rows)
+GUI -> Analyst: Render table + Export option
+Analyst -> GUI: Click "Export CSV"
+GUI -> Svc: exportCSV(dataset)
+Svc --> GUI: File stream
+GUI -> Analyst: Download “TopN_Capitals_Region.csv”
+
+@enduml
