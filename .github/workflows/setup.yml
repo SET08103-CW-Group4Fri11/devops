@@ -15,13 +15,8 @@ jobs:
           distribution: 'adopt'
       - name: Build with Maven
         run: mvn clean package
-      - name: Build Docker Image
-        run: docker build -t devopsimage .
-      - name: Run image
-        run: docker run --name devopscontainer -d devopsimage
+        # Runs docker compose up but stops all containers when any container stops, which will happen with the app container first
+      - name: Run Docker compose
+        run: docker compose up --abort-on-container-exit
       - name: View logs
-        run: docker logs devopscontainer
-      - name: Stop container
-        run: docker stop devopscontainer
-      - name: Remove container
-        run: docker rm devopscontainer
+        run: docker logs devops-container
