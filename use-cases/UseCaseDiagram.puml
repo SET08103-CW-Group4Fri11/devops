@@ -1,110 +1,113 @@
-' =============================================
-' Population Information Access System - Architecture Diagram
-' Purpose: Illustrates the high-level component architecture and data flow
-'          for a system that generates population reports and analytics.
-' =============================================
-
 @startuml
-title Population Information Access System – Components
+' ============================================================
+' Population Information Access System – Use Case Diagram
+' Fully commented script for clarity and marking
+' ============================================================
 
-' --- Styling Commands ---
-' Use clean, rectangular boxes for a modern, technical diagram feel.
-skinparam packageStyle rectangle
-skinparam componentStyle rectangle
-' Disable shadows to reduce visual noise and improve clarity.
-skinparam shadowing false
-' Arrange the layout from left (user) to right (data source).
+' ---------- Layout / look ----------
+title Population Information Access System – Use Case Diagram
 left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam usecase {
+BorderThickness 1.5
+RoundCorner 20
+' Keep labels readable and wrapped
+FontSize 14
+}
+' (Optional) tighten spacing so groups fit nicely
+skinparam Padding 4
 
-' --- External Actor ---
-' The primary user of the system, who interacts via the Graphical User Interface.
-actor "Analyst\n(User)" as User
+' ---------- Primary actor ----------
+actor "Analyst" as Analyst
+' The Analyst is the only external actor interacting with the system.
 
-' --- Application Layer Package ---
-' This package contains all the software components that make up the web application.
-package "Population Information Access App" {
-  ' The main user interface for displaying reports and an interactive data explorer.
-  component "GUI\n(Reports & Explorer)" as GUI
+' ---------- System boundary (the app you’re building) ----------
+rectangle "Population Information Access System" as System {
 
-  ' Handles the generation and delivery of report files in various formats.
-  component "Export Module\n(CSV/Excel/PDF)" as Export
+' --- A small “generic” use case to show common behavior (optional but helpful) ---
+' Think of this as the common entry point that each concrete report triggers internally.
+usecase "Generate Report" as UC0 <<abstract>>
 
-  ' Manages user authentication, authorization, and session preferences.
-  component "Auth & Session\n(Role/Prefs)" as Auth
-
-  ' The core orchestration layer. It processes requests and coordinates between other components.
-  component "Application Logic Layer" as Service
-
-  ' Dynamically constructs safe SQL queries based on user-provided parameters (filters, top N, etc.).
-  component "Query Builder\n(param → SQL)" as QBuilder
-
-  ' Performs in-memory data processing that is complex or inefficient in pure SQL (e.g., calculated percentages).
-  component "Transform Layer\n(joins, aggs,\npercentages)" as Transform
-
-  ' Stores frequently accessed, expensive-to-calculate data to improve performance.
-  component "Cache & Views\n(precomputed summaries,\nmaterialized views)" as Cache
+' ---------------- Countries reports ----------------
+package "Countries" as Countries {
+usecase "Countries by\nPopulation" as UC_COUNTRIES
+' Example inputs: scope = World/Continent/Region, order = DESC
+note right of UC_COUNTRIES
+Scope examples:
+• World
+• By Continent
+• By Region
+Output:
+• Code, Name, Continent,
+Region, Population, Capital
+end note
 }
 
-' --- Database Layer Node ---
-' Represents the physical database server containing the persistent data.
-node "SQL Database" as DB {
-  ' The raw, normalized tables containing the base population and geographic data.
-  database "Operational Tables\n(Country, City,\nCountryLanguage, ...)" as Tables
-  ' Database-level precomputed tables for complex queries, updated periodically.
-  collections "Materialized Views\n(Precomputed totals,\ncity/non-city splits)" as MViews
+' ---------------- Cities reports ----------------
+package "Cities" as Cities {
+usecase "Cities by\nPopulation" as UC_CITIES
+note right of UC_CITIES
+Scope examples:
+• World / Continent / Region / Country / District
+Output:
+• City Name, Country, District,
+Population
+end note
 }
 
-' --- Data Flow and Interactions ---
+' ---------------- Capital cities reports ----------------
+package "Capital Cities" as Capitals {
+usecase "Capital Cities by\nPopulation" as UC_CAPITALS
+usecase "Top N Capital Cities\n(Global/Continent/Region)" as UC_TOPN_CAPITALS
+note right of UC_CAPITALS
+Scope examples:
+• World / Continent / Region
+Output:
+• City, Country, District,
+Population
+end note
+note right of UC_TOPN_CAPITALS
+Parameters:
+• N (positive integer)
+• Optional: Continent / Region
+Behavior:
+• Sorted by Population DESC
+end note
+}
 
-' User initiates all interactions through the GUI.
-User --> GUI : Interact\n(select report,\nset filters, N)
-
-' The GUI ensures the user is authenticated before proceeding.
-GUI --> Auth : Login / load prefs
-
-' After login, the user's report request is sent to the backend logic.
-GUI --> Service : Request report
-
-' The Application Logic uses the Query Builder to create a tailored SQL query.
-Service --> QBuilder : Build SQL (params)
-
-' For some reports, raw SQL results need further processing (e.g., calculate % of total).
-Service --> Transform : Post-process\npercentages/splits
-
-' The Service first checks the Cache for precomputed results to avoid heavy DB loads.
-Service --> Cache : Use precomputed\nif available
-
-' If data isn't cached and requires complex, dynamic joins, it queries the base tables.
-Service --> Tables : SELECT/JOIN\n(when dynamic)
-
-' For pre-defined summaries (like total world population), it uses Materialized Views.
-Service --> MViews : SELECT\n(when precomputed)
-
-' The final, processed dataset is sent back to the GUI for display.
-Service --> GUI : Result set
-
-' The user can request to export the currently displayed data.
-GUI --> Export : Export request
-Export --> GUI : File ready
-
-' --- Explanatory Notes ---
-
-note bottom of Cache
-**Performance Optimization Strategy**
-Precompute at startup or on-demand:
-• World/Continent/Region totals
-• City vs Non-city splits
-• Language share tables
-This reduces database load for common, heavy queries.
+' ---------------- Utility / cross-cutting ----------------
+usecase "Export Results\n(CSV)" as UC_EXPORT
+note right of UC_EXPORT
+Available from any report
+to download the visible data
+in CSV format.
 end note
 
-note bottom of QBuilder
-**Query Construction Logic**
-Examples of built queries:
-• Top N globally/by region
-• Capitals only (Country.Capital=City.ID)
-• Sort DESC by Population
-This component helps prevent SQL injection by using parameterized queries.
-end note
+' ---------- Minimal relationships to keep diagram clear ----------
+' Analyst can trigger each concrete report and export.
+Analyst --> UC_COUNTRIES
+Analyst --> UC_CITIES
+Analyst --> UC_CAPITALS
+Analyst --> UC_TOPN_CAPITALS
+Analyst --> UC_EXPORT
+
+' Concrete reports internally use the generic "Generate Report" behavior.
+UC_COUNTRIES .> UC0 : <<include>>
+UC_CITIES .> UC0 : <<include>>
+UC_CAPITALS .> UC0 : <<include>>
+UC_TOPN_CAPITALS .> UC0 : <<include>>
+
+' Export is available once a report exists (optional extends relation keeps lines minimal).
+UC_EXPORT .> UC0 : <<extend>>
+}
+
+' ---------- Legend (helps during viva/presentation) ----------
+legend right
+Actor: Analyst (user of the system)
+Ovals: Use cases (report types / actions)
+<<include>> : a report invokes common "Generate Report" behavior
+<<extend>> : Export is enabled after a report exists
+end legend
 
 @enduml
