@@ -5,32 +5,14 @@ import java.sql.*;
  * Allows for the use of tools to interact with the Database
  *
  */
-public class DbTools {
+public class dbTools {
     /**
      * Connection to MySQL database.
      */
     private Connection con = null;
-    private String url;
-    private String user;
-    private String password;
-
-    public DbTools() {
-        // Priority: ENV -> system property -> fallback (works inside Docker compose)
-        url = System.getenv("DB_URL");
-        if (url == null) {
-            url = System.getProperty("db.url", "jdbc:mysql://db:3306/world?allowPublicKeyRetrieval=true&useSSL=false");
-        }
-
-        user = System.getenv("DB_USER");
-        if (user == null) {
-            user = System.getProperty("db.user", "root");
-        }
-
-        password = System.getenv("DB_PASS");
-        if (password == null) {
-            password = System.getProperty("db.pass", "example");
-        }
-    }
+    private String url = "jdbc:mysql://db:3306/world?allowPublicKeyRetrieval=true&useSSL=false";
+    private String user = "root";
+    private String password = "example";
     /**
      * Connect to the MySQL database.
      */
@@ -54,7 +36,7 @@ public class DbTools {
             try
             {
                 // Wait a bit for db to start
-                Thread.sleep(10000);
+                Thread.sleep(30000);
                 // Connect to database
                 con = DriverManager.getConnection(url, user, password);
                 System.out.println("Successfully connected");
