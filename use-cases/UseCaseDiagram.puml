@@ -1,0 +1,113 @@
+@startuml
+' ============================================================
+' Population Information Access System – Use Case Diagram
+' Fully commented script for clarity and marking
+' ============================================================
+
+' ---------- Layout / look ----------
+title Population Information Access System – Use Case Diagram
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam usecase {
+BorderThickness 1.5
+RoundCorner 20
+' Keep labels readable and wrapped
+FontSize 14
+}
+' (Optional) tighten spacing so groups fit nicely
+skinparam Padding 4
+
+' ---------- Primary actor ----------
+actor "Analyst" as Analyst
+' The Analyst is the only external actor interacting with the system.
+
+' ---------- System boundary (the app you’re building) ----------
+rectangle "Population Information Access System" as System {
+
+' --- A small “generic” use case to show common behavior (optional but helpful) ---
+' Think of this as the common entry point that each concrete report triggers internally.
+usecase "Generate Report" as UC0 <<abstract>>
+
+' ---------------- Countries reports ----------------
+package "Countries" as Countries {
+usecase "Countries by\nPopulation" as UC_COUNTRIES
+' Example inputs: scope = World/Continent/Region, order = DESC
+note right of UC_COUNTRIES
+Scope examples:
+• World
+• By Continent
+• By Region
+Output:
+• Code, Name, Continent,
+Region, Population, Capital
+end note
+}
+
+' ---------------- Cities reports ----------------
+package "Cities" as Cities {
+usecase "Cities by\nPopulation" as UC_CITIES
+note right of UC_CITIES
+Scope examples:
+• World / Continent / Region / Country / District
+Output:
+• City Name, Country, District,
+Population
+end note
+}
+
+' ---------------- Capital cities reports ----------------
+package "Capital Cities" as Capitals {
+usecase "Capital Cities by\nPopulation" as UC_CAPITALS
+usecase "Top N Capital Cities\n(Global/Continent/Region)" as UC_TOPN_CAPITALS
+note right of UC_CAPITALS
+Scope examples:
+• World / Continent / Region
+Output:
+• City, Country, District,
+Population
+end note
+note right of UC_TOPN_CAPITALS
+Parameters:
+• N (positive integer)
+• Optional: Continent / Region
+Behavior:
+• Sorted by Population DESC
+end note
+}
+
+' ---------------- Utility / cross-cutting ----------------
+usecase "Export Results\n(CSV)" as UC_EXPORT
+note right of UC_EXPORT
+Available from any report
+to download the visible data
+in CSV format.
+end note
+
+' ---------- Minimal relationships to keep diagram clear ----------
+' Analyst can trigger each concrete report and export.
+Analyst --> UC_COUNTRIES
+Analyst --> UC_CITIES
+Analyst --> UC_CAPITALS
+Analyst --> UC_TOPN_CAPITALS
+Analyst --> UC_EXPORT
+
+' Concrete reports internally use the generic "Generate Report" behavior.
+UC_COUNTRIES .> UC0 : <<include>>
+UC_CITIES .> UC0 : <<include>>
+UC_CAPITALS .> UC0 : <<include>>
+UC_TOPN_CAPITALS .> UC0 : <<include>>
+
+' Export is available once a report exists (optional extends relation keeps lines minimal).
+UC_EXPORT .> UC0 : <<extend>>
+}
+
+' ---------- Legend (helps during viva/presentation) ----------
+legend right
+Actor: Analyst (user of the system)
+Ovals: Use cases (report types / actions)
+<<include>> : a report invokes common "Generate Report" behavior
+<<extend>> : Export is enabled after a report exists
+end legend
+
+@enduml
