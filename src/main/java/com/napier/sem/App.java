@@ -5,8 +5,9 @@ public class App
     public static void main(String[] args)
     {
 //  initiate dbTools to connect with db
-    dbTools dbTools = new dbTools();
+    DbTools dbTools = new DbTools();
     dbTools.connect();
+    dbTools.printCountries();
     dbTools.disconnect();
     }
 }

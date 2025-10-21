@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   #Build app using the dockerfile located in root, it's assigned to the backend network so it can communicate with the db
   app:
@@ -8,6 +7,10 @@ services:
       - db
     networks:
       - backend
+    environment:
+      DB_URL: ${DB_URL}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
   # Build db using the dockerfile, it will seed the db with the world.sql file
   # Exposing the port in order to access the db
   db:
