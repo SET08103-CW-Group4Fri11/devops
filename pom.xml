@@ -40,7 +40,8 @@
                             <mainClass>com.napier.sem.App</mainClass>
                         </transformer>
                     </transformers>
-                    <shadedArtifactAttached>false</shadedArtifactAttached>
+                    <shadedArtifactAttached>true</shadedArtifactAttached>
+                    <shadedClassifierName>shaded</shadedClassifierName>
                 </configuration>
             </plugin>
             <!-- [SELF-CONTAINED JAR END] -->
