@@ -40,6 +40,7 @@
                             <mainClass>com.napier.sem.App</mainClass>
                         </transformer>
                     </transformers>
+                    <shadedArtifactAttached>false</shadedArtifactAttached>
                 </configuration>
             </plugin>
             <!-- [SELF-CONTAINED JAR END] -->
