@@ -1,4 +1,4 @@
-package com.napier.sem;
+package com.napier.sem.tools;
 import java.sql.*;
 
 /**
@@ -9,12 +9,12 @@ public class DbTools {
     /**
      * Connection to MySQL database.
      */
-    private Connection con = null;
+    private static Connection con = null;
 
     /**
      * Connect to the MySQL database.
      */
-    public void connect()
+    public static void connect()
     {
         try
         {
@@ -57,31 +57,17 @@ public class DbTools {
         }
     }
 
-    public void printCountries() {
-        if (con == null) {
-            System.out.println("Not connected to database.");
-            return;
-        }
-        try (Statement stmt = con.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT Name FROM country")) {
-            while (rs.next()) {
-                System.out.println(rs.getString("Name"));
-            }
-        } catch (SQLException e) {
-            System.out.println("Query failed: " + e.getMessage());
-        }
-    }
-
     /**
      * Disconnect from the MySQL database.
      */
-    public void disconnect()
+    public static void disconnect()
     {
         if (con != null)
         {
             try
             {
                 // Close connection
+                System.out.println("Closing connection to database...");
                 con.close();
             }
             catch (Exception e)
@@ -89,5 +75,10 @@ public class DbTools {
                 System.out.println("Error closing connection to database");
             }
         }
+    }
+
+//    connection getter
+    public static Connection getCon() {
+        return con;
     }
 }
