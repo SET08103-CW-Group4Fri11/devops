@@ -11,8 +11,6 @@ services:
       DB_URL: ${DB_URL}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
-    stdin_open: true   # equivalent to docker run -i
-    tty: true          # equivalent to docker run -t
   # Build db using the dockerfile, it will seed the db with the world.sql file
   # Exposing the port in order to access the db
   db:
