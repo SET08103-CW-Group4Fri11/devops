@@ -10,6 +10,9 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- [Test] -->
+        <junit.jupiter.version>5.10.5</junit.jupiter.version>
+        <surefire.version>3.5.1</surefire.version>
     </properties>
     <dependencies>
         <dependency>
@@ -17,9 +20,22 @@
             <artifactId>mysql-connector-j</artifactId>
             <version>9.4.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
+
         <plugins>
+            <!-- [JUNIT TEST PLUGIN] -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
+            </plugin>
             <!-- [SELF-CONTAINED JAR START: maven-shade-plugin] -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
