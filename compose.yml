@@ -1,23 +1,34 @@
-version: '3.8'
 services:
-  #Build app using the dockerfile located in root, it's assigned to the backend network so it can communicate with the db
   app:
     build: .
-    container_name: devops-container
+    container_name: devops-app
     depends_on:
-      - db
-    networks:
-      - backend
-  # Build db using the dockerfile, it will seed the db with the world.sql file
-  # Exposing the port in order to access the db
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: world
+      DB_USER: root
+      DB_PASS: example
+    networks: [backend]
+
   db:
     build: ./db
-    networks:
-      - backend
+    container_name: world-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: world
+      MYSQL_ROOT_HOST: "%"
     ports:
-      - "33060:3306"
-#We could use the default network, but this is about learning
+      - "33060:3306"         # host→container, to from IntelliJ if needed
+    healthcheck:
+      test: ["CMD","mysqladmin","ping","-h","127.0.0.1","-pexample"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    networks: [backend]
+
 networks:
   backend:
-    #Again, this is the default option but will serve as a reminder
     driver: bridge
