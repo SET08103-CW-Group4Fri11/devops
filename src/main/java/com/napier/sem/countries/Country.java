@@ -88,6 +88,6 @@ public class Country {
                 ", region='" + region + '\'' +
                 ", population=" + population +
                 ", capital='" + capital + '\'' +
-                '}';
+                '}'+"\n";
     }
 }

@@ -10,8 +10,13 @@ public class App
     public static void main(String[] args)
     {
         App reportSystem = new App();
-        reportSystem.mainMenu();
+        reportSystem.callCountryReports();
 
+    }
+    public void callCountryReports()
+    {
+        CountryReports cReport = new CountryReports();
+        cReport.allCountriesInWorldReport();
     }
     public void mainMenu()
     {
