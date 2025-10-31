@@ -13,6 +13,13 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
+      - name: Create .env from secrets
+        run: |
+          cat > .env <<EOF
+          DB_URL=${{ secrets.DB_URL }}
+          DB_USER=${{ secrets.DB_USER }}
+          DB_PASS=${{ secrets.DB_PASS }}
+          EOF
       - name: Build with Maven
         run: mvn clean package
         # Runs docker compose up but stops all containers when any container stops, which will happen with the app container first

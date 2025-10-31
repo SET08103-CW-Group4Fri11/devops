@@ -1,22 +1,20 @@
-package com.napier.sem;
+package com.napier.sem.tools;
 import java.sql.*;
 
 /**
  * Allows for the use of tools to interact with the Database
  *
  */
-public class dbTools {
+public class DbTools {
     /**
      * Connection to MySQL database.
      */
-    private Connection con = null;
-    private String url = "jdbc:mysql://db:3306/world?allowPublicKeyRetrieval=true&useSSL=false";
-    private String user = "root";
-    private String password = "example";
+    private static Connection con = null;
+
     /**
      * Connect to the MySQL database.
      */
-    public void connect()
+    public static void connect()
     {
         try
         {
@@ -29,6 +27,11 @@ public class dbTools {
             System.exit(-1);
         }
 
+        // Allow overriding from environment for local vs compose runs
+        String envUrl = System.getenv("DB_URL");
+        String envUser = System.getenv("DB_USER");
+        String envPass = System.getenv("DB_PASS");
+
         int retries = 10;
         for (int i = 0; i < retries; ++i)
         {
@@ -36,15 +39,15 @@ public class dbTools {
             try
             {
                 // Wait a bit for db to start
-                Thread.sleep(30000);
+                Thread.sleep(10000);
                 // Connect to database
-                con = DriverManager.getConnection(url, user, password);
+                con = DriverManager.getConnection(envUrl, envUser, envPass);
                 System.out.println("Successfully connected");
                 break;
             }
             catch (SQLException sqle)
             {
-                System.out.println("Failed to connect to database attempt " + Integer.toString(i));
+                System.out.println("Failed to connect to database attempt " + i);
                 System.out.println(sqle.getMessage());
             }
             catch (InterruptedException ie)
@@ -57,13 +60,14 @@ public class dbTools {
     /**
      * Disconnect from the MySQL database.
      */
-    public void disconnect()
+    public static void disconnect()
     {
         if (con != null)
         {
             try
             {
                 // Close connection
+                System.out.println("Closing connection to database...");
                 con.close();
             }
             catch (Exception e)
@@ -71,5 +75,10 @@ public class dbTools {
                 System.out.println("Error closing connection to database");
             }
         }
+    }
+
+//    connection getter
+    public static Connection getCon() {
+        return con;
     }
 }
