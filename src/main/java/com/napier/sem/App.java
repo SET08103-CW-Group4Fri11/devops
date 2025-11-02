@@ -16,7 +16,8 @@ public class App
     public void callCountryReports()
     {
         CountryReports cReport = new CountryReports();
-        cReport.allCountriesInWorldReport();
+        System.out.println(cReport.allCountriesInWorldReport());
+        System.out.println(cReport.allCountriesInContinentReport("Europe"));
     }
     public void mainMenu()
     {

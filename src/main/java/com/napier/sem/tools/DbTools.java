@@ -1,5 +1,9 @@
 package com.napier.sem.tools;
+import com.napier.sem.countries.Country;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Allows for the use of tools to interact with the Database
@@ -10,12 +14,10 @@ public class DbTools {
      * Connection to MySQL database.
      */
     private static Connection con = null;
-
     /**
      * Connect to the MySQL database.
      */
-    public static void connect()
-    {
+    public static void connect() throws SQLException, InterruptedException {
         try
         {
             // Load Database driver
@@ -49,10 +51,16 @@ public class DbTools {
             {
                 System.out.println("Failed to connect to database attempt " + i);
                 System.out.println(sqle.getMessage());
+                if(i == retries - 1) {
+                    throw sqle;
+                }
             }
             catch (InterruptedException ie)
             {
                 System.out.println("Thread interrupted? Should not happen.");
+                if(i == retries - 1) {
+                    throw ie;
+                }
             }
         }
     }
@@ -69,6 +77,7 @@ public class DbTools {
                 // Close connection
                 System.out.println("Closing connection to database...");
                 con.close();
+                con = null;
             }
             catch (Exception e)
             {
