@@ -123,82 +123,74 @@ public class CountryReports {
         System.out.println("A report with the top " + numberOfCountries + " countries in a region");
     }
 
-    /**
-     * This method prints a selection screen that the user can use to access whatever country reports they need
-     */
-    public void reportSelectionScreen() {
-        boolean goBack = false;
-        int userInput;
+//    /**
+//     * This method prints a selection screen that the user can use to access whatever country reports they need
+//     */
+//    public void reportSelectionScreen() {
+//        boolean goBack = false;
+//        int userInput;
+//
+//        while (!goBack) {
+//            System.out.println("Please select the type of report:");
+//            System.out.println("1. All the countries in the world organised by largest population to smallest.");
+//            System.out.println("2. All the countries in a continent organised by largest population to smallest.");
+//            System.out.println("3. All the countries in a region organised by largest population to smallest.");
+//            System.out.println("4. The top N populated countries in the world where N is provided by the user.");
+//            System.out.println("5. The top N populated countries in a continent where N is provided by the user.");
+//            System.out.println("6. The top N populated countries in a region where N is provided by the user.");
+//            System.out.println("0. Go back to main menu.");
+////          Read user's input for the report selection
+//            try {
+//                Scanner countryReportsScanner = new Scanner(System.in);
+//                userInput = countryReportsScanner.nextInt();
+//            }catch (InputMismatchException e){
+//                System.out.println("thats not a numeric input");
+//                userInput = 10;
+//            }
+//            Scanner topScanner = new Scanner(System.in);
+//            switch (userInput) {
+//                case 1: allCountriesInWorldReport(); break;
+//                case 2:
+//                    /*Need to make this ask for a continent*/
+//                    allCountriesInContinentReport("Asia");
+//                break;
+//                case 3:
+//                    /*Need to make this ask for a region*/
+//                    allCountriesInRegionReport("Caribbean");
+//                break;
+//                case 4:
+//                    try { // Read number of countries for top, alert user if not an integer
+//                        System.out.println("Please enter the number of countries you'd like to see in the report:");
+//                        topNCountriesInWorldReport(topScanner.nextInt());
+//                    }catch (InputMismatchException e){
+//                        System.out.println("Please enter an integer");
+//                    }finally {
+//                        break;
+//                    }
+//                case 5:
+//                    try { // Read number of countries for top, alert user if not an integer
+//                        System.out.println("Please enter the number of countries you'd like to see in the report:");
+//                        /*Need to make this ask for a continent*/
+//                        topNCountriesInContinentReport(topScanner.nextInt(),"Asia");
+//                    }catch (InputMismatchException e){
+//                        System.out.println("Please enter the number of countries you'd like to see in the report:");
+//                        System.out.println("Please enter an integer");
+//                    }finally {
+//                        break;
+//                    }
+//                case 6:
+//                    try { // Read number of countries for top, alert user if not an integer
+//                        /*Need to make this ask for a region*/
+//                        topNCountriesInRegionReport(topScanner.nextInt(),"Caribbean");
+//                    }catch (InputMismatchException e){
+//                        System.out.println("Please enter an integer");
+//                    }finally {
+//                        break;
+//                    }
+//                case 0: goBack = true; break;
+//                default: System.out.println("Invalid choice. Try again."); break;
+//            }
+//        }
+//    }
 
-        while (!goBack) {
-            System.out.println("Please select the type of report:");
-            System.out.println("1. All the countries in the world organised by largest population to smallest.");
-            System.out.println("2. All the countries in a continent organised by largest population to smallest.");
-            System.out.println("3. All the countries in a region organised by largest population to smallest.");
-            System.out.println("4. The top N populated countries in the world where N is provided by the user.");
-            System.out.println("5. The top N populated countries in a continent where N is provided by the user.");
-            System.out.println("6. The top N populated countries in a region where N is provided by the user.");
-            System.out.println("0. Go back to main menu.");
-//          Read user's input for the report selection
-            try {
-                Scanner countryReportsScanner = new Scanner(System.in);
-                userInput = countryReportsScanner.nextInt();
-            }catch (InputMismatchException e){
-                System.out.println("thats not a numeric input");
-                userInput = 10;
-            }
-            Scanner topScanner = new Scanner(System.in);
-            switch (userInput) {
-                case 1: allCountriesInWorldReport(); break;
-                case 2:
-                    /*Need to make this ask for a continent*/
-                    allCountriesInContinentReport("Asia");
-                break;
-                case 3:
-                    /*Need to make this ask for a region*/
-                    allCountriesInRegionReport("Caribbean");
-                break;
-                case 4:
-                    try { // Read number of countries for top, alert user if not an integer
-                        System.out.println("Please enter the number of countries you'd like to see in the report:");
-                        topNCountriesInWorldReport(topScanner.nextInt());
-                    }catch (InputMismatchException e){
-                        System.out.println("Please enter an integer");
-                    }finally {
-                        break;
-                    }
-                case 5:
-                    try { // Read number of countries for top, alert user if not an integer
-                        System.out.println("Please enter the number of countries you'd like to see in the report:");
-                        /*Need to make this ask for a continent*/
-                        topNCountriesInContinentReport(topScanner.nextInt(),"Asia");
-                    }catch (InputMismatchException e){
-                        System.out.println("Please enter the number of countries you'd like to see in the report:");
-                        System.out.println("Please enter an integer");
-                    }finally {
-                        break;
-                    }
-                case 6:
-                    try { // Read number of countries for top, alert user if not an integer
-                        /*Need to make this ask for a region*/
-                        topNCountriesInRegionReport(topScanner.nextInt(),"Caribbean");
-                    }catch (InputMismatchException e){
-                        System.out.println("Please enter an integer");
-                    }finally {
-                        break;
-                    }
-                case 0: goBack = true; break;
-                default: System.out.println("Invalid choice. Try again."); break;
-            }
-        }
-    }
-
-    @Override
-    public String toString() {
-        String finalString = "";
-        for( Country country : countryList){
-            finalString += country.toString() + "\n";
-        }
-        return finalString;
-    }
 }
