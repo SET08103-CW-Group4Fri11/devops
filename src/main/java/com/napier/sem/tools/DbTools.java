@@ -10,6 +10,9 @@ import java.util.HashMap;
  *
  */
 public class DbTools {
+    static String envUrl = System.getenv("DB_URL");
+    static String envUser = System.getenv("DB_USER");
+    static String envPass = System.getenv("DB_PASS");
     /**
      * Connection to MySQL database.
      */
@@ -29,11 +32,11 @@ public class DbTools {
             System.exit(-1);
         }
 
-        // Allow overriding from environment for local vs compose runs
-        String envUrl = System.getenv("DB_URL");
-        String envUser = System.getenv("DB_USER");
-        String envPass = System.getenv("DB_PASS");
-
+        if(envUrl == null || envUser == null || envPass == null){
+            envUrl = "jdbc:mysql://localhost:33060/world?allowPublicKeyRetrieval=true&useSSL=false";
+            envUser = "root";
+            envPass = "example";
+        }
         int retries = 10;
         for (int i = 0; i < retries; ++i)
         {
@@ -63,6 +66,7 @@ public class DbTools {
                 }
             }
         }
+
     }
 
     /**

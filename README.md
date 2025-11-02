@@ -90,7 +90,10 @@ When creating the pull request:
 - Complete any other info as best as you can, such as, project, milestone, etc.
 - After the pull request has been created, ask a colleague for a peer review if possible
 ### <ins>**Do never push directly to Develop, Main or Release**</ins>
-
+### How to run DB only so you can call methods without using the App container
+Run this on your terminal:
+`docker compose up -d db`
+Wait for the db to be initialised, then run your main or method that you need.
 ## Group 4 - Friday - 11am
 ### Group members
 - [Ben Arthurs](https://github.com/BenArthurs)
