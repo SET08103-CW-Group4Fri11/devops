@@ -1,10 +1,8 @@
-package com.napier;
-import com.napier.sem.App;
+package com.napier.unit;
 import com.napier.sem.countries.Country;
 import com.napier.sem.countries.CountryReports;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
 import java.util.ArrayList;
 
