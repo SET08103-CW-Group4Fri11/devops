@@ -26,6 +26,8 @@ public class App
          CityReports cReport = new CityReports();
          System.out.println(cReport.getAllCitiesInWorldReport());
          System.out.println(cReport.getAllCitiesInContinentReport("Europe"));
+         System.out.println(cReport.getAllCitiesInRegionReport("Eastern Europe"));
+         System.out.println(cReport.getAllCitiesInCountryReport("Spain"));
     }
 //    public void mainMenu()
 //    {

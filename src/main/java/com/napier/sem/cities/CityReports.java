@@ -132,4 +132,14 @@ public class CityReports {
      * @param country A String country name
      * @return a Formatted report as a String or an error message
      */
+    public String getAllCitiesInCountryReport(String country) {
+        String query = CitySqlQueries.ALL_CITIES_COUNTRY;
+        try {
+            cities = runCityQuery(query, country);
+            return formatCityReport(cities);
+        } catch (SQLException | InterruptedException e) {
+            System.out.println("Error generating city report for " + country + " country: " + e.getMessage());
+            return "Error generating city report for " + country + " country.";
+        }
+    }
 }

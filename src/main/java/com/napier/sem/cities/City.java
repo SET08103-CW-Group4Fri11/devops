@@ -11,10 +11,10 @@ public class City {
     private int population;
 
     /**
-     * @param name
-     * @param country
-     * @param district
-     * @param population
+     * @param name the city's name
+     * @param country the country the city is located in
+     * @param district the district the city is located in
+     * @param population the population of the city
      */
 
     public City(String name, String country, String district, int population) {
@@ -24,7 +24,7 @@ public class City {
         this.population = population;
     }
 
-    // Getters & Setters
+    // Getters
     public String getName() {return  name;}
 
     public String getCountry() {return country;}
@@ -32,6 +32,4 @@ public class City {
     public String getDistrict() {return district;}
 
     public int getPopulation() {return population;}
-
-
 }
