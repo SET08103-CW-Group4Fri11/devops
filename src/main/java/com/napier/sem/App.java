@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import com.napier.sem.cities.CityReports;
 import com.napier.sem.countries.CountryReports;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -10,7 +11,8 @@ public class App
     public static void main(String[] args)
     {
         App reportSystem = new App();
-        reportSystem.callCountryReports();
+        // reportSystem.callCountryReports();
+        reportSystem.callCityReports();
 
     }
     public void callCountryReports()
@@ -18,6 +20,20 @@ public class App
         CountryReports cReport = new CountryReports();
         System.out.println(cReport.allCountriesInWorldReport());
         System.out.println(cReport.allCountriesInContinentReport("Europe"));
+    }
+    public void callCityReports()
+    {
+         CityReports cReport = new CityReports();
+//         System.out.println(cReport.getAllCitiesInWorldReport());
+//         System.out.println(cReport.getAllCitiesInContinentReport("Europe"));
+//         System.out.println(cReport.getAllCitiesInRegionReport("Eastern Europe"));
+//         System.out.println(cReport.getAllCitiesInCountryReport("Spain"));
+//         System.out.println(cReport.getAllCitiesInDistrictReport("Andalusia"));
+//         System.out.println(cReport.getTopNCitiesInWorldReport(10));
+//         System.out.println(cReport.getTopNCitiesInContinentReport(10,"Africa"));
+//         System.out.println(cReport.getTopNCitiesInRegionReport(10,"Eastern Europe"));
+//         System.out.println(cReport.getTopNCitiesInCountryReport(10,"Canada"));
+         System.out.println(cReport.getTopNCitiesInDistrictReport(3,"Andalusia"));
     }
 //    public void mainMenu()
 //    {
