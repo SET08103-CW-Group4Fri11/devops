@@ -28,6 +28,7 @@ public class App
          System.out.println(cReport.getAllCitiesInContinentReport("Europe"));
          System.out.println(cReport.getAllCitiesInRegionReport("Eastern Europe"));
          System.out.println(cReport.getAllCitiesInCountryReport("Spain"));
+         System.out.println(cReport.getAllCitiesInDistrictReport("Andalusia"));
     }
 //    public void mainMenu()
 //    {

@@ -28,4 +28,12 @@ public final class CitySqlQueries {
             + "FROM city JOIN country ON city.CountryCode = country.Code "
             + "WHERE country.Name = ? "
             + "ORDER BY city.Population DESC;";
+
+    public static final String ALL_CITIES_DISTRICT =
+            "SELECT city.Name, country.Name AS Country, city.District, city.Population "
+            + "FROM city JOIN country ON city.CountryCode = country.Code "
+            + "WHERE city.District = ? "
+            + "ORDER BY city.Population DESC;";
+
+
 }

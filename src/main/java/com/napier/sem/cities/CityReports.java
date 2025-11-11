@@ -142,4 +142,20 @@ public class CityReports {
             return "Error generating city report for " + country + " country.";
         }
     }
+
+    /**
+     * Print out a report with all the cities in a district ordered by population
+     * @param district A String district name
+     * @return a Formatted report as a String or an error message
+     */
+    public String getAllCitiesInDistrictReport(String district) {
+        String query = CitySqlQueries.ALL_CITIES_DISTRICT;
+        try {
+            cities = runCityQuery(query, district);
+            return formatCityReport(cities);
+        } catch (SQLException | InterruptedException e) {
+            System.out.println("Error generating city report for " + district + " district: " + e.getMessage());
+            return "Error generating city report for " + district + " district.";
+        }
+    }
 }
