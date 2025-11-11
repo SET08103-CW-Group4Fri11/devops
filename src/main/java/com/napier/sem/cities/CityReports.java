@@ -165,7 +165,7 @@ public class CityReports {
      * @return a Formatted report as a String or an error message
      */
     public String getTopNCitiesInWorldReport(int n) {
-        String query = CitySqlQueries.ALL_CITIES_WORLD + " LIMIT ?;";
+        String query = CitySqlQueries.ALL_CITIES_WORLD.replaceAll(";", " LIMIT ?;"); // Add LIMIT clause
         try {
             cities = runCityQuery(query, n);
             return formatCityReport(cities);
