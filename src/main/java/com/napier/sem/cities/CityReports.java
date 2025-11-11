@@ -208,4 +208,21 @@ public class CityReports {
             return "Error generating top " + n + " cities in " + region + " region report.";
         }
     }
+
+    /**
+     * Print out a report with the top N cities in a country ordered by population
+     * @param n An integer number of cities
+     * @param country A String country name
+     * @return a Formatted report as a String or an error message
+     */
+    public String getTopNCitiesInCountryReport(int n, String country) {
+        String query = CitySqlQueries.ALL_CITIES_COUNTRY.replaceAll(";", " LIMIT ?;"); // Add LIMIT clause
+        try {
+            cities = runCityQuery(query, country, n);
+            return formatCityReport(cities);
+        } catch (SQLException | InterruptedException e) {
+            System.out.println("Error generating top " + n + " cities in " + country + " country report: " + e.getMessage());
+            return "Error generating top " + n + " cities in " + country + " country report.";
+        }
+    }
 }
