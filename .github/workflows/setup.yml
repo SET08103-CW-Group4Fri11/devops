@@ -34,7 +34,7 @@ jobs:
         run: mvn -Dtest=com.napier.integration.** test
 
   Build:
-    name: Devops Action
+    name: Compose up and Logs
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
