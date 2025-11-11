@@ -11,7 +11,7 @@ public class App
     public static void main(String[] args)
     {
         App reportSystem = new App();
-        reportSystem.callCountryReports();
+        // reportSystem.callCountryReports();
         reportSystem.callCityReports();
 
     }
@@ -24,11 +24,12 @@ public class App
     public void callCityReports()
     {
          CityReports cReport = new CityReports();
-         System.out.println(cReport.getAllCitiesInWorldReport());
-         System.out.println(cReport.getAllCitiesInContinentReport("Europe"));
-         System.out.println(cReport.getAllCitiesInRegionReport("Eastern Europe"));
-         System.out.println(cReport.getAllCitiesInCountryReport("Spain"));
-         System.out.println(cReport.getAllCitiesInDistrictReport("Andalusia"));
+//         System.out.println(cReport.getAllCitiesInWorldReport());
+//         System.out.println(cReport.getAllCitiesInContinentReport("Europe"));
+//         System.out.println(cReport.getAllCitiesInRegionReport("Eastern Europe"));
+//         System.out.println(cReport.getAllCitiesInCountryReport("Spain"));
+//         System.out.println(cReport.getAllCitiesInDistrictReport("Andalusia"));
+         System.out.println(cReport.getTopNCitiesInWorldReport(10));
     }
 //    public void mainMenu()
 //    {

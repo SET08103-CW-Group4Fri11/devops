@@ -158,4 +158,20 @@ public class CityReports {
             return "Error generating city report for " + district + " district.";
         }
     }
+
+    /**
+     * Print out a report with the top N cities in the world ordered by population
+     * @param n An integer number of cities
+     * @return a Formatted report as a String or an error message
+     */
+    public String getTopNCitiesInWorldReport(int n) {
+        String query = CitySqlQueries.ALL_CITIES_WORLD + " LIMIT ?;";
+        try {
+            cities = runCityQuery(query, n);
+            return formatCityReport(cities);
+        } catch (SQLException | InterruptedException e) {
+            System.out.println("Error generating top " + n + " cities in the world report: " + e.getMessage());
+            return "Error generating top " + n + " cities in the world report.";
+        }
+    }
 }
