@@ -15,7 +15,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-      - name: Unit Tests
+      - name: Run Unit Tests
         run: mvn -Dtest=com.napier.unit.** test
   Integration-Tests:
     name: Integration Tests
@@ -30,7 +30,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-      - name: Unit Tests
+      - name: Run Integration Tests
         run: mvn -Dtest=com.napier.integration.** test
 
   Build:
