@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import com.napier.sem.cities.CityReports;
 import com.napier.sem.countries.CountryReports;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -11,6 +12,7 @@ public class App
     {
         App reportSystem = new App();
         reportSystem.callCountryReports();
+        reportSystem.callCityReports();
 
     }
     public void callCountryReports()
@@ -18,6 +20,12 @@ public class App
         CountryReports cReport = new CountryReports();
         System.out.println(cReport.allCountriesInWorldReport());
         System.out.println(cReport.allCountriesInContinentReport("Europe"));
+    }
+    public void callCityReports()
+    {
+         CityReports cReport = new CityReports();
+         System.out.println(cReport.getAllCitiesInWorldReport());
+         System.out.println(cReport.getAllCitiesInContinentReport("Europe"));
     }
 //    public void mainMenu()
 //    {
