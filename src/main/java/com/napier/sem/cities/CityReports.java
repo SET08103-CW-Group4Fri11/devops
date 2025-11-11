@@ -174,4 +174,21 @@ public class CityReports {
             return "Error generating top " + n + " cities in the world report.";
         }
     }
+
+    /**
+     * Print out a report with the top N cities in a continent ordered by population
+     * @param n An integer number of cities
+     * @param continent A String continent name
+     * @return a Formatted report as a String or an error message
+     */
+    public String getTopNCitiesInContinentReport(int n, String continent) {
+        String query = CitySqlQueries.ALL_CITIES_CONTINENT.replaceAll(";", " LIMIT ?;"); // Add LIMIT clause
+        try {
+            cities = runCityQuery(query, continent, n);
+            return formatCityReport(cities);
+        } catch (SQLException | InterruptedException e) {
+            System.out.println("Error generating top " + n + " cities in " + continent + " continent report: " + e.getMessage());
+            return "Error generating top " + n + " cities in " + continent + " continent report.";
+        }
+    }
 }
