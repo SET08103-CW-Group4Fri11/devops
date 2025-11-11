@@ -24,7 +24,7 @@ public class App {
             }));
 
             App reportSystem = new App();
-//            reportSystem.callCountryReports();
+            reportSystem.callCountryReports();
             reportSystem.callCityReports();
 
             DbTools.disconnect(); // disconnect from the database

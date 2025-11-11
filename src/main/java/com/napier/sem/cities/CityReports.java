@@ -58,7 +58,6 @@ public class CityReports {
                 while (rs.next()) {
                     cities.add(new City(rs.getString("Name"), rs.getString("Country"), rs.getString("District"), rs.getInt("Population")));
                 }
-                DbTools.disconnect();
                 return cities;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -69,13 +68,11 @@ public class CityReports {
                 for (int i = 0; i < params.length; i++) {
                     pstmt.setObject(i + 1, params[i]);
                 }
-                try (ResultSet rs = pstmt.executeQuery()) {
-                    while (rs.next()) {
-                        cities.add(new City(rs.getString("Name"), rs.getString("Country"), rs.getString("District"), rs.getInt("Population")));
-                    }
-                    DbTools.disconnect();
-                    return cities;
+                ResultSet rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    cities.add(new City(rs.getString("Name"), rs.getString("Country"), rs.getString("District"), rs.getInt("Population")));
                 }
+                return cities;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -84,7 +81,6 @@ public class CityReports {
 
     /**
      * Print out a report with all the cities in the world ordered by population
-     *
      * @return a Formatted report as a String or an error message
      */
     public String getAllCitiesInWorldReport() {

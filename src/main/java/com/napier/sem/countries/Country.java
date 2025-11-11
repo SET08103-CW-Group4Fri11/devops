@@ -13,12 +13,12 @@ public class Country {
     private String capital;
 
     /**
-     * @param code
-     * @param name
-     * @param continent
-     * @param region
-     * @param population
-     * @param capital
+     * @param code the country's code
+     * @param name the country's name
+     * @param continent the continent the country is located in
+     * @param region the region the country is located in
+     * @param population the population of the country
+     * @param capital the capital city of the country
      */
     public Country(String code, String name, String continent, String region, int population, String capital) {
         this.code = code;
@@ -30,7 +30,7 @@ public class Country {
     }
 
 
-    // Getters & Setters
+    // Getters
     public String getCode() {
         return code;
     }
