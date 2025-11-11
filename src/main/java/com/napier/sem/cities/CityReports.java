@@ -1,4 +1,5 @@
 package com.napier.sem.cities;
+
 import com.napier.sem.tools.DbTools;
 
 import java.sql.PreparedStatement;
@@ -9,11 +10,12 @@ import java.util.ArrayList;
 
 public class CityReports {
 
-        // Attributes
+    // Attributes
     private ArrayList<City> cities;
 
     /**
      * Method to format a report of cities
+     *
      * @param cities ArrayList of cities
      * @return String with the formatted report
      */
@@ -34,54 +36,55 @@ public class CityReports {
 
     /**
      * A method to run a SQL query that stores the different queried values in an ArrayList of cities
-     * @param query the SQL query to be executed
+     *
+     * @param query  the SQL query to be executed
      * @param params the parameters for the prepared statement
      * @return ArrayList of City
-     * @throws SQLException when it cannot connect to the DB
+     * @throws SQLException         when it cannot connect to the DB
      * @throws InterruptedException when it cannot connect to the DB
-     * @throws RuntimeException when the query is incorrect
+     * @throws RuntimeException     when the query is incorrect
      */
     public ArrayList<City> runCityQuery(String query, Object... params) throws SQLException, InterruptedException, RuntimeException {
-        try {
-            DbTools.connect();
-            ArrayList<City> cities = new ArrayList<>();
-            // No params provided
-            if (params == null || params.length == 0) {
-                try (Statement stmt = DbTools.getCon().createStatement()) {
-                    ResultSet rs = stmt.executeQuery(query);
+
+        if (DbTools.getCon() == null) {
+            throw new SQLException("No DB connection. Call DbTools.connect() before executing queries.");
+        }
+
+        ArrayList<City> cities = new ArrayList<>();
+        // No params provided
+        if (params == null || params.length == 0) {
+            try (Statement stmt = DbTools.getCon().createStatement()) {
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    cities.add(new City(rs.getString("Name"), rs.getString("Country"), rs.getString("District"), rs.getInt("Population")));
+                }
+                DbTools.disconnect();
+                return cities;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            // Params provided
+            try (PreparedStatement pstmt = DbTools.getCon().prepareStatement(query)) {
+                for (int i = 0; i < params.length; i++) {
+                    pstmt.setObject(i + 1, params[i]);
+                }
+                try (ResultSet rs = pstmt.executeQuery()) {
                     while (rs.next()) {
                         cities.add(new City(rs.getString("Name"), rs.getString("Country"), rs.getString("District"), rs.getInt("Population")));
                     }
                     DbTools.disconnect();
                     return cities;
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
                 }
-            } else {
-                // Params provided
-                try (PreparedStatement pstmt = DbTools.getCon().prepareStatement(query)) {
-                    for (int i = 0; i < params.length; i++) {
-                        pstmt.setObject(i + 1, params[i]);
-                    }
-                    try (ResultSet rs = pstmt.executeQuery()) {
-                        while (rs.next()) {
-                            cities.add(new City(rs.getString("Name"), rs.getString("Country"), rs.getString("District"), rs.getInt("Population")));
-                        }
-                        DbTools.disconnect();
-                        return cities;
-                    }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-        } catch (SQLException | InterruptedException e) {
-            System.out.println("Cant connect to database: " + e.getMessage());
-            throw new RuntimeException(e);
         }
     }
 
     /**
      * Print out a report with all the cities in the world ordered by population
+     *
      * @return a Formatted report as a String or an error message
      */
     public String getAllCitiesInWorldReport() {
@@ -97,6 +100,7 @@ public class CityReports {
 
     /**
      * Print out a report with all the cities in a continent ordered by population
+     *
      * @param continent A String continent name
      * @return a Formatted report as a String or an error message
      */
@@ -113,6 +117,7 @@ public class CityReports {
 
     /**
      * Print out a report with all the cities in a region ordered by population
+     *
      * @param region A String region name
      * @return a Formatted report as a String or an error message
      */
@@ -129,6 +134,7 @@ public class CityReports {
 
     /**
      * Print out a report with all the cities in a country ordered by population
+     *
      * @param country A String country name
      * @return a Formatted report as a String or an error message
      */
@@ -145,6 +151,7 @@ public class CityReports {
 
     /**
      * Print out a report with all the cities in a district ordered by population
+     *
      * @param district A String district name
      * @return a Formatted report as a String or an error message
      */
@@ -161,6 +168,7 @@ public class CityReports {
 
     /**
      * Print out a report with the top N cities in the world ordered by population
+     *
      * @param n An integer number of cities
      * @return a Formatted report as a String or an error message
      */
@@ -177,7 +185,8 @@ public class CityReports {
 
     /**
      * Print out a report with the top N cities in a continent ordered by population
-     * @param n An integer number of cities
+     *
+     * @param n         An integer number of cities
      * @param continent A String continent name
      * @return a Formatted report as a String or an error message
      */
@@ -194,7 +203,8 @@ public class CityReports {
 
     /**
      * Print out a report with the top N cities in a region ordered by population
-     * @param n An integer number of cities
+     *
+     * @param n      An integer number of cities
      * @param region A String region name
      * @return a Formatted report as a String or an error message
      */
@@ -211,7 +221,8 @@ public class CityReports {
 
     /**
      * Print out a report with the top N cities in a country ordered by population
-     * @param n An integer number of cities
+     *
+     * @param n       An integer number of cities
      * @param country A String country name
      * @return a Formatted report as a String or an error message
      */
@@ -228,7 +239,8 @@ public class CityReports {
 
     /**
      * Print out a report with the top N cities in a district ordered by population
-     * @param n An integer number of cities
+     *
+     * @param n        An integer number of cities
      * @param district A String district name
      * @return a Formatted report as a String or an error message
      */

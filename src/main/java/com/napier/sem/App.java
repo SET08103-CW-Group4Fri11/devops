@@ -2,27 +2,46 @@ package com.napier.sem;
 
 import com.napier.sem.cities.CityReports;
 import com.napier.sem.countries.CountryReports;
+import com.napier.sem.tools.DbTools;
+
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class App
-{
-    private static boolean closeApp = false;
-    public static void main(String[] args)
-    {
-        App reportSystem = new App();
-        // reportSystem.callCountryReports();
-        reportSystem.callCityReports();
+public class App {
+    // private static boolean closeApp = false;
+    public static void main(String[] args) {
+        try {
+            DbTools.connect(); // connect to the database
+
+            // ensure disconnect on JVM shutdown
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                try {
+                    DbTools.disconnect();
+                } catch (Exception e) {
+                    System.err.println("Error during DB disconnect: " + e.getMessage());
+                }
+            }));
+
+            App reportSystem = new App();
+//            reportSystem.callCountryReports();
+            reportSystem.callCityReports();
+
+            DbTools.disconnect(); // disconnect from the database
+
+        } catch (SQLException | InterruptedException e) {
+            System.err.println("Failed to connect to the database: " + e.getMessage());
+            System.exit(1); // Exit if DB connection fails
+        }
+
 
     }
-    public void callCountryReports()
-    {
+    public void callCountryReports() {
         CountryReports cReport = new CountryReports();
         System.out.println(cReport.allCountriesInWorldReport());
-        System.out.println(cReport.allCountriesInContinentReport("Europe"));
+//        System.out.println(cReport.allCountriesInContinentReport("Europe"));
     }
-    public void callCityReports()
-    {
+    public void callCityReports() {
          CityReports cReport = new CityReports();
 //         System.out.println(cReport.getAllCitiesInWorldReport());
 //         System.out.println(cReport.getAllCitiesInContinentReport("Europe"));
@@ -35,8 +54,7 @@ public class App
 //         System.out.println(cReport.getTopNCitiesInCountryReport(10,"Canada"));
          System.out.println(cReport.getTopNCitiesInDistrictReport(3,"Andalusia"));
     }
-//    public void mainMenu()
-//    {
+//    public void mainMenu(){
 //
 //        int userInput;
 //        while (!closeApp){
