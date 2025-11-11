@@ -9,12 +9,12 @@ import java.util.ArrayList;
 
 public class CityReports {
 
-    // Atributes
-    private static ArrayList<City> cities;
+        // Attributes
+    private ArrayList<City> cities;
 
     /**
      * Method to format a report of cities
-     * @param cities
+     * @param cities ArrayList of cities
      * @return String with the formatted report
      */
     public String formatCityReport(ArrayList<City> cities) {
@@ -34,7 +34,8 @@ public class CityReports {
 
     /**
      * A method to run a SQL query that stores the different queried values in an ArrayList of cities
-     * @param query
+     * @param query the SQL query to be executed
+     * @param params the parameters for the prepared statement
      * @return ArrayList of City
      * @throws SQLException when it cannot connect to the DB
      * @throws InterruptedException when it cannot connect to the DB
@@ -43,11 +44,11 @@ public class CityReports {
     public ArrayList<City> runCityQuery(String query, Object... params) throws SQLException, InterruptedException, RuntimeException {
         try {
             DbTools.connect();
+            ArrayList<City> cities = new ArrayList<>();
             // No params provided
             if (params == null || params.length == 0) {
                 try (Statement stmt = DbTools.getCon().createStatement()) {
                     ResultSet rs = stmt.executeQuery(query);
-                    ArrayList<City> cities = new ArrayList<>();
                     while (rs.next()) {
                         cities.add(new City(rs.getString("Name"), rs.getString("Country"), rs.getString("District"), rs.getInt("Population")));
                     }
@@ -63,7 +64,6 @@ public class CityReports {
                         pstmt.setObject(i + 1, params[i]);
                     }
                     try (ResultSet rs = pstmt.executeQuery()) {
-                        ArrayList<City> cities = new ArrayList<>();
                         while (rs.next()) {
                             cities.add(new City(rs.getString("Name"), rs.getString("Country"), rs.getString("District"), rs.getInt("Population")));
                         }
@@ -82,7 +82,7 @@ public class CityReports {
 
     /**
      * Print out a report with all the cities in the world ordered by population
-     * @return a Formatted report as a String
+     * @return a Formatted report as a String or an error message
      */
     public String getAllCitiesInWorldReport() {
         String query = CitySqlQueries.ALL_CITIES_WORLD;
@@ -98,7 +98,7 @@ public class CityReports {
     /**
      * Print out a report with all the cities in a continent ordered by population
      * @param continent A String continent name
-     * @return a Formatted report as a String
+     * @return a Formatted report as a String or an error message
      */
     public String getAllCitiesInContinentReport(String continent) {
         String query = CitySqlQueries.ALL_CITIES_CONTINENT;
@@ -106,8 +106,30 @@ public class CityReports {
             cities = runCityQuery(query, continent);
             return formatCityReport(cities);
         } catch (SQLException | InterruptedException e) {
-            System.out.println("Error generating city report for continent " + continent + ": " + e.getMessage());
+            System.out.println("Error generating city report for " + continent + " continent: " + e.getMessage());
             return "Error generating city report for " + continent + " continent.";
         }
     }
+
+    /**
+     * Print out a report with all the cities in a region ordered by population
+     * @param region A String region name
+     * @return a Formatted report as a String or an error message
+     */
+    public String getAllCitiesInRegionReport(String region) {
+        String query = CitySqlQueries.ALL_CITIES_REGION;
+        try {
+            cities = runCityQuery(query, region);
+            return formatCityReport(cities);
+        } catch (SQLException | InterruptedException e) {
+            System.out.println("Error generating city report for " + region + " region: " + e.getMessage());
+            return "Error generating city report for " + region + " region.";
+        }
+    }
+
+    /**
+     * Print out a report with all the cities in a country ordered by population
+     * @param country A String country name
+     * @return a Formatted report as a String or an error message
+     */
 }

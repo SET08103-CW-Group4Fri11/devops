@@ -4,7 +4,7 @@ package com.napier.sem.cities;
  * A class to contain cities
  */
 public class City {
-    // Atributes
+    // Attributes
     private String name;
     private String country;
     private String district;

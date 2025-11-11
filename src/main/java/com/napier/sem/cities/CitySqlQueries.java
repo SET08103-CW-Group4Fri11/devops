@@ -16,4 +16,10 @@ public final class CitySqlQueries {
             + "FROM city JOIN country ON city.CountryCode = country.Code "
             + "WHERE country.Continent = ? "
             + "ORDER BY city.Population DESC;";
+
+    public static final String ALL_CITIES_REGION =
+            "SELECT city.Name, country.Name AS Country, city.District, city.Population "
+            + "FROM city JOIN country ON city.CountryCode = country.Code "
+            + "WHERE country.Region = ? "
+            + "ORDER BY city.Population DESC;";
 }
