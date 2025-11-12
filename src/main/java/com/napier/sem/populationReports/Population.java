@@ -29,21 +29,6 @@ public class Population {
         return nonCityPopulation;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setTotalPopulation(long totalPopulation) {
-        this.totalPopulation = totalPopulation;
-    }
-
-    public void setCityPopulation(long cityPopulation) {
-        this.cityPopulation = cityPopulation;
-    }
-
-    public void setNonCityPopulation(long nonCityPopulation) {
-        this.nonCityPopulation = nonCityPopulation;
-    }
     public void displayInfo() {
         System.out.println("Region/Country/ Cont: " + name);
         System.out.println("Total Population: " + totalPopulation);
