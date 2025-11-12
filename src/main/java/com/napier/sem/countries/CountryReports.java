@@ -17,7 +17,6 @@ public class CountryReports {
 
     /**
      * Method that formats a country report from an ArrayList of countries
-     *
      * @param countries
      * @return String with the formatted report
      */
@@ -39,8 +38,7 @@ public class CountryReports {
 
     /**
      * A method to run a SQL query that stores the different queried values in an ArrayList of countries
-     *
-     * @param query
+     * @param query the SQL query to be run
      * @param params the parameters for the prepared statement
      * @return ArrayList of Country
      * @throws SQLException         when it cannot connect to the DB
@@ -89,6 +87,7 @@ public class CountryReports {
     public String allCountriesInWorldReport() {
         String query = "Select c.code, c.name, c.continent, c.region, c.population, ci.name as Capital from country c join city ci on c.capital = ci.id order by c.population desc;";
         try {
+            System.out.println("A report with all the countries in the world");
             countryList = runCountryQuery(query);
         } catch (SQLException | InterruptedException | RuntimeException e) {
             System.out.println("Something went wrong with the query: " + e.getMessage());
@@ -98,13 +97,13 @@ public class CountryReports {
 
     /**
      * Prints out a report with all the countries in a continent, arranged by population, largest to smallest
-     *
      * @param continent A string with the name of a continent
      * @return a String containing a formatted report with all countries in the specified continent
      */
     public String allCountriesInContinentReport(String continent) {
         String query = "Select c.code, c.name, c.continent, c.region, c.population, ci.name as Capital from country c join city ci on c.capital = ci.id where c.continent = " + "'" + continent + "'" + " order by c.population desc;";
         try {
+            System.out.println("A report with all the countries in a continent");
             countryList = runCountryQuery(query);
         } catch (SQLException | InterruptedException | RuntimeException e) {
             System.out.println(e.getMessage());
@@ -114,15 +113,14 @@ public class CountryReports {
 
     /**
      * Prints out a report showing all countries in a region, arranged by population, largest to smallest
-     *
      * @param region A string containing the region
      */
     public void allCountriesInRegionReport(String region) {
+        System.out.println("A report with all the countries in a region");
     }
 
     /**
      * Prints a report with the inputted number of countries, arranged by population
-     *
      * @param numberOfCountries Integer
      */
     public void topNCountriesInWorldReport(int numberOfCountries) {
@@ -132,7 +130,6 @@ public class CountryReports {
 
     /**
      * Prints a report  of the top n countries belonging to a continent
-     *
      * @param numberOfCountries
      * @param continent
      */
@@ -142,7 +139,6 @@ public class CountryReports {
 
     /**
      * Prints a report  of the top n countries belonging to a region
-     *
      * @param numberOfCountries
      * @param region
      */

@@ -39,7 +39,7 @@ public class App {
     public void callCountryReports() {
         CountryReports cReport = new CountryReports();
         System.out.println(cReport.allCountriesInWorldReport());
-//        System.out.println(cReport.allCountriesInContinentReport("Europe"));
+        System.out.println(cReport.allCountriesInContinentReport("Europe"));
     }
     public void callCityReports() {
          CityReports cReport = new CityReports();
