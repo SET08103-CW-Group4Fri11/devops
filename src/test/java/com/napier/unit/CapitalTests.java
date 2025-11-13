@@ -23,8 +23,8 @@ public class CapitalTests {
         reportsTest = new CapitalReports();
 
         // Example capitals (name, country, population)
-        cap1 = new Capital("Edinburgh", "United Kingdom", 488_050);
-        cap2 = new Capital("Madrid", "Spain", 3_223_334);
+        cap1 = new Capital("Edinburgh", "United Kingdom", "Midlothian", 488_050);
+        cap2 = new Capital("Madrid", "Spain", "Madrid", 3_223_334);
 
         nullCapital = null;
 
