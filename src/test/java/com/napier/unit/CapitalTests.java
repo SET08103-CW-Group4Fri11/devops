@@ -52,13 +52,13 @@ public class CapitalTests {
     @Test
     void formatCapitalReport_nullList_returnsNoCapitals() {
         // Expect the same “no data” message your formatter returns
-        assertEquals("No capitals found", reportsTest.formatCapitalReport(null));
+        assertEquals("No capital data found", reportsTest.formatCapitalReport(null));
         System.out.println("Null list test: OK\n");
     }
 
     @Test
     void formatCapitalReport_emptyList_returnsNoCapitals() {
-        assertEquals("No capitals found", reportsTest.formatCapitalReport(emptyCapList));
+        assertEquals("No capital data found", reportsTest.formatCapitalReport(emptyCapList));
         System.out.println("Empty list test: OK\n");
     }
 
