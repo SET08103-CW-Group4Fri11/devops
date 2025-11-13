@@ -14,6 +14,7 @@ public class CapitalIntegrationTests {
     @BeforeAll
     void init() throws Exception {
         DbTools.connect();      // your existing static connect()
+        assertTrue(DbTools.isConnected(), "Database connection not established");
         reports = new CapitalReports();
     }
 

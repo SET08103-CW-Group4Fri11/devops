@@ -69,6 +69,14 @@ public class DbTools {
 
     }
 
+    public static boolean isConnected() {
+        try {
+            return con != null && !con.isClosed();
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
     /**
      * Disconnect from the MySQL database.
      */
