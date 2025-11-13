@@ -13,7 +13,7 @@ public class AppPrintCapitalsTest {       // A JUnit test class. Public so any r
 
     /**
      * Test 1: Passing a null list
-     * Why: to survive null inputs without throwing (e.g., NullPointerException).
+     * Why: - Handles null input/ to survive null inputs without throwing (e.g., NullPointerException).
      */
     @Test
     public void nullList_ok() {
@@ -22,7 +22,7 @@ public class AppPrintCapitalsTest {       // A JUnit test class. Public so any r
 
     /**
      * Test 2: Passing an empty list.
-     * Why: Boundary case — empty collections often break naive loops/formatters.
+     * Why: - Handles empty collections. Boundary case — empty collections often break naive loops/formatters.
      */
     @Test
     public void emptyList_ok() {
@@ -31,7 +31,7 @@ public class AppPrintCapitalsTest {       // A JUnit test class. Public so any r
 
     /**
      * Test 3: List contains a null element.
-     * Why: Real lists can contain nulls; loops should guard each row.
+     * Why: - Handles null elements inside list. Real lists can contain nulls; loops should guard each row.
      */
     @Test
     public void containsNull_ok() {
