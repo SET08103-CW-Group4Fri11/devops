@@ -32,4 +32,9 @@ public class City {
     public String getDistrict() {return district;}
 
     public int getPopulation() {return population;}
+
+    @Override
+    public String toString() {
+        return String.format("City{name='%s', country='%s', district='%s', population=%d}", name, country, district, population);
+    }
 }

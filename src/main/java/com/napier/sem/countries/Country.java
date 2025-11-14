@@ -43,18 +43,21 @@ public class Country {
         return region;
     }
 
-
     public String getContinent() {
         return continent;
     }
-
 
     public int getPopulation() {
         return population;
     }
 
-
     public String getCapital() {
         return capital;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Country{code='%s', name='%s', continent='%s', region='%s', population=%d, capital='%s'}",
+                code, name, continent, region, population, capital);
     }
 }
