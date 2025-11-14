@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import com.napier.sem.capital.CapitalReports;
 import com.napier.sem.cities.CityReports;
 import com.napier.sem.countries.CountryReports;
 import com.napier.sem.tools.DbTools;
@@ -24,8 +25,9 @@ public class App {
             }));
 
             App reportSystem = new App();
-            reportSystem.callCountryReports();
+//            reportSystem.callCountryReports();
             reportSystem.callCityReports();
+//            reportSystem.callCapitalReports();
 
             DbTools.disconnect(); // disconnect from the database
 
@@ -35,6 +37,11 @@ public class App {
         }
 
 
+    }
+    public void callCapitalReports() {
+         CapitalReports capReport = new CapitalReports();
+         System.out.println(capReport.getAllCapitalsWorldReport());
+         System.out.println(capReport.getAllCapitalsInContinentReport("Europe"));
     }
     public void callCountryReports() {
         CountryReports cReport = new CountryReports();
