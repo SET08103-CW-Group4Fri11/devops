@@ -31,7 +31,10 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
       - name: Run Integration Tests
-        run: mvn -Dtest=com.napier.integration.** test
+        run: |
+          docker compose up -d db
+          mvn -Dtest=com.napier.integration.** test
+          docker compose down
 
   Build:
     name: Compose up and Logs

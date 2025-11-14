@@ -37,7 +37,7 @@ public class DbTools {
             envUser = "root";
             envPass = "example";
         }
-        int retries = 10;
+        int retries = 4;
         for (int i = 0; i < retries; ++i)
         {
             System.out.println("Connecting to database...");
