@@ -7,20 +7,17 @@ public class Capital {
     // Attributes
     private String name;
     private String country;
-    private String district;
     private int population;
 
     /**
      * @param name the capital city's name
      * @param country the country the capital city is located in
-     * @param district the district the capital city is located in
      * @param population the population of the capital city
      */
 
-    public Capital(String name, String country, String district, int population) {
+    public Capital(String name, String country, int population) {
         this.name = name;
         this.country = country;
-        this.district = district;
         this.population = population;
     }
 
@@ -29,12 +26,10 @@ public class Capital {
 
     public String getCountry() {return country;}
 
-    public String getDistrict() {return district;}
-
     public int getPopulation() {return population;}
 
     @Override
     public String toString() {
-        return String.format("Capital{name='%s', country='%s', district='%s', population=%d}", name, country, district, population);
+        return String.format("Capital{name='%s', country='%s', population=%d}", name, country, population);
     }
 }

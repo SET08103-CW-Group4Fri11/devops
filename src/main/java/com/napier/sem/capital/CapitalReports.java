@@ -43,7 +43,6 @@ public class CapitalReports {
                     capitals.add(new Capital(
                             rs.getString("Name"),
                             rs.getString("Country"),
-                            rs.getString("District"),
                             rs.getInt("Population")));
                 }
                 return capitals;
@@ -61,7 +60,6 @@ public class CapitalReports {
                     capitals.add(new Capital(
                             rs.getString("Name"),
                             rs.getString("Country"),
-                            rs.getString("District"),
                             rs.getInt("Population")));
                 }
                 return capitals;
