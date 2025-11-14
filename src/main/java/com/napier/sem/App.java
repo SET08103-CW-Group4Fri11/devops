@@ -40,8 +40,9 @@ public class App {
     }
     public void callCapitalReports() {
          CapitalReports capReport = new CapitalReports();
-         System.out.println(capReport.getAllCapitalsWorldReport());
+//         System.out.println(capReport.getAllCapitalsWorldReport());
 //         System.out.println(capReport.getAllCapitalsInContinentReport("Europe"));
+            System.out.println(capReport.getAllCapitalsInRegionReport("Eastern Europe"));
     }
     public void callCountryReports() {
         CountryReports cReport = new CountryReports();
