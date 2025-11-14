@@ -9,6 +9,15 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
+    /** Explicitly start DB for non-main entry points (tests, tools). */
+    public static void startDb() throws Exception {
+        DbTools.connect();
+    }
+
+    /** Explicitly stop DB for non-main entry points. */
+    public static void stopDb() {
+        DbTools.disconnect();
+    }
     // private static boolean closeApp = false;
     public static void main(String[] args) {
         try {
