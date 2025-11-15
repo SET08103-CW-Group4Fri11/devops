@@ -84,7 +84,7 @@ public class CityReports {
     public String getAllCitiesInWorldReport() {
         String query = CitySqlQueries.ALL_CITIES_WORLD;
         try {
-            System.out.println("A report of all the cities in the world ordered by population:");
+//            System.out.println("A report of all the cities in the world ordered by population:");
             cities = runCityQuery(query);
             return formatCityReport(cities);
         } catch (SQLException | InterruptedException e) {
@@ -102,7 +102,7 @@ public class CityReports {
     public String getAllCitiesInContinentReport(String continent) {
         String query = CitySqlQueries.ALL_CITIES_CONTINENT;
         try {
-            System.out.println("A report of all the cities in " + continent + " continent ordered by population:");
+//            System.out.println("A report of all the cities in " + continent + " continent ordered by population:");
             cities = runCityQuery(query, continent);
             return formatCityReport(cities);
         } catch (SQLException | InterruptedException e) {
@@ -120,7 +120,7 @@ public class CityReports {
     public String getAllCitiesInRegionReport(String region) {
         String query = CitySqlQueries.ALL_CITIES_REGION;
         try {
-            System.out.println("A report of all the cities in " + region + " region ordered by population:");
+//            System.out.println("A report of all the cities in " + region + " region ordered by population:");
             cities = runCityQuery(query, region);
             return formatCityReport(cities);
         } catch (SQLException | InterruptedException e) {
@@ -138,7 +138,7 @@ public class CityReports {
     public String getAllCitiesInCountryReport(String country) {
         String query = CitySqlQueries.ALL_CITIES_COUNTRY;
         try {
-            System.out.println("A report of all the cities in " + country + " country ordered by population:");
+//            System.out.println("A report of all the cities in " + country + " country ordered by population:");
             cities = runCityQuery(query, country);
             return formatCityReport(cities);
         } catch (SQLException | InterruptedException e) {
@@ -156,7 +156,7 @@ public class CityReports {
     public String getAllCitiesInDistrictReport(String district) {
         String query = CitySqlQueries.ALL_CITIES_DISTRICT;
         try {
-            System.out.println("A report of all the cities in " + district + " district ordered by population:");
+//            System.out.println("A report of all the cities in " + district + " district ordered by population:");
             cities = runCityQuery(query, district);
             return formatCityReport(cities);
         } catch (SQLException | InterruptedException e) {
@@ -174,7 +174,7 @@ public class CityReports {
     public String getTopNCitiesInWorldReport(int n) {
         String query = CitySqlQueries.ALL_CITIES_WORLD.replaceAll(";", " LIMIT ?;"); // Add LIMIT clause
         try {
-            System.out.println("A report of the top " + n + " cities in the world ordered by population:");
+//            System.out.println("A report of the top " + n + " cities in the world ordered by population:");
             cities = runCityQuery(query, n);
             return formatCityReport(cities);
         } catch (SQLException | InterruptedException e) {
@@ -193,7 +193,7 @@ public class CityReports {
     public String getTopNCitiesInContinentReport(int n, String continent) {
         String query = CitySqlQueries.ALL_CITIES_CONTINENT.replaceAll(";", " LIMIT ?;"); // Add LIMIT clause
         try {
-            System.out.println("A report of the top " + n + " cities in " + continent + " continent ordered by population:");
+//            System.out.println("A report of the top " + n + " cities in " + continent + " continent ordered by population:");
             cities = runCityQuery(query, continent, n);
             return formatCityReport(cities);
         } catch (SQLException | InterruptedException e) {
@@ -212,7 +212,7 @@ public class CityReports {
     public String getTopNCitiesInRegionReport(int n, String region) {
         String query = CitySqlQueries.ALL_CITIES_REGION.replaceAll(";", " LIMIT ?;"); // Add LIMIT clause
         try {
-            System.out.println("A report of the top " + n + " cities in " + region + " region ordered by population:");
+//            System.out.println("A report of the top " + n + " cities in " + region + " region ordered by population:");
             cities = runCityQuery(query, region, n);
             return formatCityReport(cities);
         } catch (SQLException | InterruptedException e) {
@@ -231,7 +231,7 @@ public class CityReports {
     public String getTopNCitiesInCountryReport(int n, String country) {
         String query = CitySqlQueries.ALL_CITIES_COUNTRY.replaceAll(";", " LIMIT ?;"); // Add LIMIT clause
         try {
-            System.out.println("A report of the top " + n + " cities in " + country + " country ordered by population:");
+//            System.out.println("A report of the top " + n + " cities in " + country + " country ordered by population:");
             cities = runCityQuery(query, country, n);
             return formatCityReport(cities);
         } catch (SQLException | InterruptedException e) {
@@ -250,7 +250,7 @@ public class CityReports {
     public String getTopNCitiesInDistrictReport(int n, String district) {
         String query = CitySqlQueries.ALL_CITIES_DISTRICT.replaceAll(";", " LIMIT ?;"); // Add LIMIT clause
         try {
-            System.out.println("A report of the top " + n + " cities in " + district + " district ordered by population:");
+//            System.out.println("A report of the top " + n + " cities in " + district + " district ordered by population:");
             cities = runCityQuery(query, district, n);
             return formatCityReport(cities);
         } catch (SQLException | InterruptedException e) {
