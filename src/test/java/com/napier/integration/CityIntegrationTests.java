@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -97,5 +98,77 @@ public class CityIntegrationTests {
                         !out.equals("No city data found"));
     }
 
+    // Test for getting top N cities in the world report
+    @Test
+    void getTopNCitiesInWorldReport_has_sizeAtMost() {
+        int N = 5;
+        String out = reports.getTopNCitiesInWorldReport(N);
+        long lines = out.lines().count();
+        assertTrue(lines <= N + 1); // Header + N rows
+    }
 
+    // Test for getting top N cities in a continent report
+    @Test
+    void getTopNCitiesInContinentReport_has_sizeAtMost() {
+        int N = 5;
+        String out = reports.getTopNCitiesInContinentReport(N, "Europe");
+        long lines = out.lines().count();
+        assertTrue(lines <= N + 1); // Header + N rows
+    }
+
+    // Test for getting top N cities in a region report
+    @Test
+    void getTopNCitiesInRegionReport_has_sizeAtMost() {
+        int N = 5;
+        String out = reports.getTopNCitiesInRegionReport(N, "Western Europe");
+        long lines = out.lines().count();
+        assertTrue(lines <= N + 1); // Header + N rows
+    }
+
+    // Test for getting top N cities in a country report
+    @Test
+    void getTopNCitiesInCountryReport_has_sizeAtMost() {
+        int N = 5;
+        String out = reports.getTopNCitiesInCountryReport(N, "United Kingdom");
+        long lines = out.lines().count();
+        assertTrue(lines <= N + 1); // Header + N rows
+    }
+
+    // Test for getting top N cities in a district report
+    @Test
+    void getTopNCitiesInDistrictReport_has_sizeAtMost() {
+        int N = 5;
+        String out = reports.getTopNCitiesInDistrictReport(N, "England");
+        long lines = out.lines().count();
+        assertTrue(lines <= N + 1); // Header + N rows
+    }
+
+    // Invalid parameter tests
+    // Test for invalid continent returns no data message
+    @Test
+    void invalidContinent_returnsNoDataMessage() {
+        String out = reports.getAllCitiesInContinentReport("NoSuchContinent");
+        assertEquals("No cities found", out);
+    }
+
+    // Test for invalid region returns no data message
+    @Test
+    void invalidRegion_returnsNoDataMessage() {
+        String out = reports.getAllCitiesInRegionReport("NoSuchRegion");
+        assertEquals("No cities found", out);
+    }
+
+    // Test for invalid country returns no data message
+    @Test
+    void invalidCountry_returnsNoDataMessage() {
+        String out = reports.getAllCitiesInCountryReport("NoSuchCountry");
+        assertEquals("No cities found", out);
+    }
+
+    // Test for invalid district returns no data message
+    @Test
+    void invalidDistrict_returnsNoDataMessage() {
+        String out = reports.getAllCitiesInDistrictReport("NoSuchDistrict");
+        assertEquals("No cities found", out);
+    }
 }
