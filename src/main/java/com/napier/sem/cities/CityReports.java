@@ -47,8 +47,8 @@ public class CityReports {
         if (DbTools.getCon() == null) {
             throw new SQLException("No DB connection. Call DbTools.connect() before executing queries.");
         }
-
         ArrayList<City> cities = new ArrayList<>();
+
         // No params provided
         if (params == null || params.length == 0) {
             try (Statement stmt = DbTools.getCon().createStatement()) {
