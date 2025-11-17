@@ -43,7 +43,7 @@ public class CityIntegrationTests {
                         out.contains("District") &&
                         out.contains("Population") &&
                         !out.startsWith("Error") &&
-                        !out.equals("No city data found"));
+                        !out.equals("No cities found"));
     }
 
     // Test for getting all cities in a continent report
@@ -56,7 +56,7 @@ public class CityIntegrationTests {
                         out.contains("District") &&
                         out.contains("Population") &&
                         !out.startsWith("Error") &&
-                        !out.equals("No city data found"));
+                        !out.equals("No cities found"));
     }
 
     // Test for getting all cities in a region report
@@ -69,7 +69,7 @@ public class CityIntegrationTests {
                         out.contains("District") &&
                         out.contains("Population") &&
                         !out.startsWith("Error") &&
-                        !out.equals("No city data found"));
+                        !out.equals("No cities found"));
     }
 
     // Test for getting all cities in a country report
@@ -82,7 +82,7 @@ public class CityIntegrationTests {
                         out.contains("District") &&
                         out.contains("Population") &&
                         !out.startsWith("Error") &&
-                        !out.equals("No city data found"));
+                        !out.equals("No cities found"));
     }
 
     // Test for getting all cities in a district report
@@ -95,7 +95,7 @@ public class CityIntegrationTests {
                         out.contains("District") &&
                         out.contains("Population") &&
                         !out.startsWith("Error") &&
-                        !out.equals("No city data found"));
+                        !out.equals("No cities found"));
     }
 
     // Test for getting top N cities in the world report

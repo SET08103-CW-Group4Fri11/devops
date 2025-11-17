@@ -1,13 +1,8 @@
 package com.napier.sem;
 
-import com.napier.sem.capital.CapitalReports;
-import com.napier.sem.cities.CityReports;
-import com.napier.sem.countries.CountryReports;
 import com.napier.sem.tools.DbTools;
 
 import java.sql.SQLException;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class App {
     // private static boolean closeApp = false;
@@ -25,9 +20,6 @@ public class App {
             }));
 
             App reportSystem = new App();
-//            reportSystem.callCountryReports();
-//            reportSystem.callCityReports();
-            reportSystem.callCapitalReports();
 
             DbTools.disconnect(); // disconnect from the database
 
@@ -38,30 +30,7 @@ public class App {
 
 
     }
-    public void callCapitalReports() {
-         CapitalReports capReport = new CapitalReports();
-//         System.out.println(capReport.getAllCapitalsWorldReport());
-//         System.out.println(capReport.getAllCapitalsInContinentReport("Europe"));
-            System.out.println(capReport.getAllCapitalsInRegionReport("Eastern Europe"));
-    }
-    public void callCountryReports() {
-        CountryReports cReport = new CountryReports();
-        System.out.println(cReport.allCountriesInWorldReport());
-        System.out.println(cReport.allCountriesInContinentReport("Europe"));
-    }
-    public void callCityReports() {
-         CityReports cReport = new CityReports();
-//         System.out.println(cReport.getAllCitiesInWorldReport());
-//         System.out.println(cReport.getAllCitiesInContinentReport("Europe"));
-//         System.out.println(cReport.getAllCitiesInRegionReport("Eastern Europe"));
-//         System.out.println(cReport.getAllCitiesInCountryReport("Spain"));
-//         System.out.println(cReport.getAllCitiesInDistrictReport("Andalusia"));
-//         System.out.println(cReport.getTopNCitiesInWorldReport(10));
-//         System.out.println(cReport.getTopNCitiesInContinentReport(10,"Africa"));
-//         System.out.println(cReport.getTopNCitiesInRegionReport(10,"Eastern Europe"));
-//         System.out.println(cReport.getTopNCitiesInCountryReport(10,"Canada"));
-         System.out.println(cReport.getTopNCitiesInDistrictReport(3,"Andalusia"));
-    }
+
 //    public void mainMenu(){
 //
 //        int userInput;

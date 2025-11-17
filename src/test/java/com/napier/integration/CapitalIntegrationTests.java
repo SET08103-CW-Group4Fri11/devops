@@ -9,13 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CapitalIntegrationTests {
 
-    CapitalReports reports;
+    CapitalReports reports = new CapitalReports();
 
     @BeforeAll
     void init() throws Exception {
         DbTools.connect();      // connect to DB
         assertTrue(DbTools.isConnected(), "Database connection not established");
-        reports = new CapitalReports();
     }
 
     @AfterAll
