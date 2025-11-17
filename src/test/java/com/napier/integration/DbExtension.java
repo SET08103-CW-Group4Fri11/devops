@@ -1,4 +1,6 @@
-// java
+// class to manage DB connections for integration tests with different scopes
+// it helps to run tests faster by reusing the same connection for multiple tests when appropriate
+// and ensures proper cleanup of resources.
 package com.napier.integration;
 
 import com.napier.sem.tools.DbTools;
