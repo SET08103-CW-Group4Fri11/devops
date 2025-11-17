@@ -35,7 +35,7 @@ public class CityIT {
 
     // Test for getting all cities in the world report
     @Test
-    void getAllCitiesInWorldReport_has_rows() {
+    void getAllCitiesInWorldReport_hasRows() {
         String out = reports.getAllCitiesInWorldReport();
         assertTrue(
                 out.contains("Name") &&
@@ -48,7 +48,7 @@ public class CityIT {
 
     // Test for getting all cities in a continent report
     @Test
-    void getAllCitiesInContinentReport_has_rows() {
+    void getAllCitiesInContinentReport_europe_hasRows() {
         String out = reports.getAllCitiesInContinentReport("Europe");
         assertTrue(
                 out.contains("Name") &&
@@ -61,7 +61,7 @@ public class CityIT {
 
     // Test for getting all cities in a region report
     @Test
-    void getAllCitiesInRegionReport_has_rows() {
+    void getAllCitiesInRegionReport_westernEurope_hasRows() {
         String out = reports.getAllCitiesInRegionReport("Western Europe");
         assertTrue(
                 out.contains("Name") &&
@@ -74,7 +74,7 @@ public class CityIT {
 
     // Test for getting all cities in a country report
     @Test
-    void getAllCitiesInCountryReport_has_rows() {
+    void getAllCitiesInCountryReport_unitedKingdom_hasRows() {
         String out = reports.getAllCitiesInCountryReport("United Kingdom");
         assertTrue(
                 out.contains("Name") &&
@@ -87,7 +87,7 @@ public class CityIT {
 
     // Test for getting all cities in a district report
     @Test
-    void getAllCitiesInDistrictReport_has_rows() {
+    void getAllCitiesInDistrictReport_england_hasRows() {
         String out = reports.getAllCitiesInDistrictReport("England");
         assertTrue(
                 out.contains("Name") &&
@@ -193,8 +193,7 @@ public class CityIT {
     // Test for N much larger than available cities
     @Test
     void getTopNCitiesInWorldReport_largeN_returnsAllRows() {
-        int largeN = 10000;
-        String out = reports.getTopNCitiesInWorldReport(largeN);
+        String out = reports.getTopNCitiesInWorldReport(10000);
         long lines = out.lines().count();
         assertTrue(lines >= 1); // At least header
     }

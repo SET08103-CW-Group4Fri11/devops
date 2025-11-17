@@ -117,6 +117,9 @@ public class CapitalReports {
      * @return String with the formatted report or error message
      */
     public String getAllCapitalsInContinentReport(String continent) {
+        if (continent==null || continent.isEmpty()) {
+            return "No capital data found";
+        }
         String query = CapitalSqlQueries.ALL_CAPITALS_CONTINENT;
         try {
 //            System.out.println("A report of all the capital cities in " + continent + ":");
@@ -134,6 +137,9 @@ public class CapitalReports {
      * @return String with the formatted report or error message
      */
     public String getAllCapitalsInRegionReport(String region) {
+        if (region==null || region.isEmpty()) {
+            return "No capital data found";
+        }
         String query = CapitalSqlQueries.ALL_CAPITALS_REGION;
         try {
 //            System.out.println("A report of all the capital cities in " + region + ":");
