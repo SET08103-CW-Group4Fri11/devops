@@ -7,15 +7,14 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class CapitalIntegrationTests {
+public class CapitalIT {
 
-    CapitalReports reports;
+    CapitalReports reports = new CapitalReports();
 
     @BeforeAll
     void init() throws Exception {
-        DbTools.connect();      // your existing static connect()
+        DbTools.connect();      // connect to DB
         assertTrue(DbTools.isConnected(), "Database connection not established");
-        reports = new CapitalReports();
     }
 
     @AfterAll
@@ -28,7 +27,7 @@ public class CapitalIntegrationTests {
         String out = reports.getAllCapitalsWorldReport();
         assertNotNull(out);
         assertFalse(out.startsWith("Error"));
-        assertFalse(out.equals("No capital data found"));
+        assertNotEquals("No capital data found", out);
         assertTrue(out.contains("Population"));  // header present
     }
 
@@ -37,7 +36,7 @@ public class CapitalIntegrationTests {
         String out = reports.getAllCapitalsInContinentReport("Europe");
         assertNotNull(out);
         assertFalse(out.startsWith("Error"));
-        assertFalse(out.equals("No capital data found"));
+        assertNotEquals("No capital data found", out);
         assertTrue(out.contains("Europe") || out.contains("United Kingdom") || out.contains("Spain"));
     }
 
@@ -46,7 +45,7 @@ public class CapitalIntegrationTests {
         String out = reports.getAllCapitalsInRegionReport("Western Europe");
         assertNotNull(out);
         assertFalse(out.startsWith("Error"));
-        assertFalse(out.equals("No capital data found"));
+        assertNotEquals("No capital data found", out);
     }
 
     @Test

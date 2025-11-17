@@ -102,7 +102,7 @@ public class CapitalReports {
     public String getAllCapitalsWorldReport() {
         String query = CapitalSqlQueries.ALL_CAPITALS_WORLD;
         try {
-            System.out.println("A report of all the capital cities in the world:");
+//            System.out.println("A report of all the capital cities in the world:");
             capitals = runCapitalQuery(query);
             return formatCapitalReport(capitals);
         } catch (SQLException | InterruptedException e) {
@@ -111,10 +111,15 @@ public class CapitalReports {
         }
     }
 
+    /**
+     * Print out a report of all capital cities in a continent
+     * @param continent The continent to filter by
+     * @return String with the formatted report or error message
+     */
     public String getAllCapitalsInContinentReport(String continent) {
         String query = CapitalSqlQueries.ALL_CAPITALS_CONTINENT;
         try {
-            System.out.println("A report of all the capital cities in " + continent + ":");
+//            System.out.println("A report of all the capital cities in " + continent + ":");
             capitals = runCapitalQuery(query, continent);
             return formatCapitalReport(capitals);
         } catch (SQLException | InterruptedException e) {
@@ -123,10 +128,15 @@ public class CapitalReports {
         }
     }
 
+    /**
+     * Print out a report of all capital cities in a region
+     * @param region The region to filter by
+     * @return String with the formatted report or error message
+     */
     public String getAllCapitalsInRegionReport(String region) {
         String query = CapitalSqlQueries.ALL_CAPITALS_REGION;
         try {
-            System.out.println("A report of all the capital cities in " + region + ":");
+//            System.out.println("A report of all the capital cities in " + region + ":");
             capitals = runCapitalQuery(query, region);
             return formatCapitalReport(capitals);
         } catch (SQLException  | InterruptedException e) {
@@ -135,11 +145,16 @@ public class CapitalReports {
         }
     }
 
+    /**
+     * Print out a report of the top N capital cities in the world
+     * @param n The number of top capitals to retrieve
+     * @return String with the formatted report or error message
+     */
     public String getTopNCapitalsWorldReport(int n) {
         if (n <= 0) return "No capital data found";
         String query = CapitalSqlQueries.ALL_CAPITALS_WORLD.replace(";", " LIMIT ?;");
         try {
-            System.out.println("A report of the top " + n + " capitals in the world:");
+//            System.out.println("A report of the top " + n + " capitals in the world:");
             var capitals = runCapitalQuery(query, n);
             return formatCapitalReport(capitals);
         } catch (SQLException | InterruptedException e) {
@@ -148,11 +163,17 @@ public class CapitalReports {
         }
     }
 
+    /**
+     * Print out a report of the top N capital cities in a continent
+     * @param continent The continent to filter by
+     * @param n The number of top capitals to retrieve
+     * @return String with the formatted report or error message
+     */
     public String getTopNCapitalsInContinentReport(String continent, int n) {
         if (n <= 0) return "No capital data found";
         String query = CapitalSqlQueries.ALL_CAPITALS_CONTINENT.replace(";", " LIMIT ?;");
         try {
-            System.out.println("A report of the top " + n + " capitals in " + continent + ":");
+//            System.out.println("A report of the top " + n + " capitals in " + continent + ":");
             capitals = runCapitalQuery(query, continent, n);
             return formatCapitalReport(capitals);
         } catch (SQLException | InterruptedException e) {
@@ -161,11 +182,17 @@ public class CapitalReports {
         }
     }
 
+    /**
+     * Print out a report of the top N capital cities in a region
+     * @param region The region to filter by
+     * @param n The number of top capitals to retrieve
+     * @return String with the formatted report or error message
+     */
     public String getTopNCapitalsInRegionReport(String region, int n) {
         if (n <= 0) return "No capital data found";
         String query = CapitalSqlQueries.ALL_CAPITALS_REGION.replace(";", " LIMIT ?;");
         try {
-            System.out.println("A report of the top " + n + " capitals in " + region + ":");
+//            System.out.println("A report of the top " + n + " capitals in " + region + ":");
             capitals = runCapitalQuery(query, region, n);
             return formatCapitalReport(capitals);
         } catch (SQLException | InterruptedException e) {
