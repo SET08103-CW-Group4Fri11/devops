@@ -1,31 +1,19 @@
 package com.napier.integration;
 
 import com.napier.sem.capital.CapitalReports;
-import com.napier.sem.tools.DbTools;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+@ExtendWith(DbExtension.class)
 public class CapitalIT {
 
     CapitalReports reports = new CapitalReports();
 
-    @BeforeAll
-    void init() throws Exception {
-        DbTools.connect();      // connect to DB
-    }
-
-    @AfterAll
-    void cleanup() {
-        DbTools.disconnect();
-    }
-
-    // Verify that the database connection is established
-    @Test
-    void connection_is_established() {
-        assertTrue(DbTools.isConnected(), "Database connection not established");
-    }
+    // Naming convention: methodName_condition_expectedResult
 
     // Test for getting all capitals in the world report
     @Test

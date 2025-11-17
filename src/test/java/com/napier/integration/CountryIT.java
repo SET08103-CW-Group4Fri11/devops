@@ -1,21 +1,18 @@
 package com.napier.integration;
-import com.napier.sem.App;
+
 import com.napier.sem.countries.CountryReports;
-import com.napier.sem.tools.DbTools;
-import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.sql.SQLException;
-
+@ExtendWith(DbExtension.class)
 public class CountryIT {
-    static App reportSystem;
-    static CountryReports countryReport;
-    @BeforeAll
-    static void init() throws SQLException, InterruptedException {
-        DbTools.connect();
-        reportSystem = new App();
-        countryReport = new CountryReports();
-    }
+
+    static CountryReports countryReport = new CountryReports();
+
+    // Naming convention: methodName_condition_expectedResult
+
+
     @Test
     void runCountryQueryTest(){
         countryReport.allCountriesInWorldReport();
