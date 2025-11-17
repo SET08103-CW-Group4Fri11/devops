@@ -11,27 +11,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class CityIT {
+public class CityIT extends DbIntegrationTestBase {
 
     CityReports reports = new CityReports();
 
-    @BeforeAll
-    void init() throws Exception {
-        DbTools.connect();      // connect to DB
-    }
-
-    @AfterAll
-    void cleanup() {
-        DbTools.disconnect();
-    }
-
     // Naming convention: methodName_condition_expectedResult
-
-    // Verify that the database connection is established
-    @Test
-    void connection_is_established() {
-        assertTrue(DbTools.isConnected(), "Database connection not established");
-    }
 
     // Test for getting all cities in the world report
     @Test
