@@ -21,8 +21,8 @@ public class App {
             }));
 
 //            App reportSystem = new App();
-            CityReports cityReports = new CityReports();
-            System.out.println(cityReports.getAllCitiesInDistrictReport(""));
+//            CityReports cityReports = new CityReports();
+//            System.out.println(cityReports.getAllCitiesInDistrictReport(""));
             DbTools.disconnect(); // disconnect from the database
 
         } catch (SQLException | InterruptedException e) {
