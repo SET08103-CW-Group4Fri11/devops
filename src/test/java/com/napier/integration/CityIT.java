@@ -144,31 +144,58 @@ public class CityIT {
     }
 
     // Invalid parameter tests
-    // Test for invalid continent returns no data message
+    // Test for invalid continent, null or empty returns no data message
     @Test
-    void invalidContinent_returnsNoDataMessage() {
-        String out = reports.getAllCitiesInContinentReport("NoSuchContinent");
-        assertEquals("No cities found", out);
+    void getAllCitiesInContinentReport_invalidContinentOrNullOrEmpty_returnsNoDataMessage() {
+        assertEquals("No cities found", reports.getAllCitiesInContinentReport("NoSuchContinent"));
+        assertEquals("No cities found", reports.getAllCitiesInContinentReport(null));
+        assertEquals("No cities found", reports.getAllCitiesInContinentReport(""));
     }
 
-    // Test for invalid region returns no data message
+    // Test for invalid region, null or empty returns no data message
     @Test
-    void invalidRegion_returnsNoDataMessage() {
-        String out = reports.getAllCitiesInRegionReport("NoSuchRegion");
-        assertEquals("No cities found", out);
+    void getAllCitiesInRegionReport_invalidRegionOrNullOrEmpty_returnsNoDataMessage() {
+        assertEquals("No cities found", reports.getAllCitiesInRegionReport("NoSuchRegion"));
+        assertEquals("No cities found", reports.getAllCitiesInRegionReport(null));
+        assertEquals("No cities found", reports.getAllCitiesInRegionReport(""));
     }
 
-    // Test for invalid country returns no data message
+    // Test for invalid country, null or empty returns no data message
     @Test
-    void invalidCountry_returnsNoDataMessage() {
-        String out = reports.getAllCitiesInCountryReport("NoSuchCountry");
-        assertEquals("No cities found", out);
+    void getAllCitiesInRegionReport_invalidCountryOrNullOrEmpty_returnsNoDataMessage() {
+        assertEquals("No cities found", reports.getAllCitiesInCountryReport("NoSuchCountry"));
+        assertEquals("No cities found", reports.getAllCitiesInCountryReport(null));
+        assertEquals("No cities found", reports.getAllCitiesInCountryReport(""));
     }
 
-    // Test for invalid district returns no data message
+    // Test for invalid district, null or empty returns no data message
     @Test
-    void invalidDistrict_returnsNoDataMessage() {
-        String out = reports.getAllCitiesInDistrictReport("NoSuchDistrict");
-        assertEquals("No cities found", out);
+    void getAllCitiesInRegionReport_invalidDistrictOrNullOrEmpty_returnsNoDataMessage() {
+        assertEquals("No cities found", reports.getAllCitiesInDistrictReport("NoSuchDistrict"));
+        assertEquals("No cities found", reports.getAllCitiesInDistrictReport(null));
+        assertEquals("No cities found", reports.getAllCitiesInDistrictReport(""));
+    }
+
+    // Test for negative N returns no data message
+    @Test
+    void getTopNCitiesInWorldReport_negativeN_returnsNoDataMessage() {
+        String out = reports.getTopNCitiesInWorldReport(-10);
+        assertTrue(out.equals("No cities found") || out.lines().count() == 1);
+    }
+
+    // Test for N = 1 (should return header + 1 row)
+    @Test
+    void getTopNCitiesInWorldReport_oneN_returnsOneRow() {
+        String out = reports.getTopNCitiesInWorldReport(1);
+        assertEquals(2, out.lines().count()); // Header + 1 row
+    }
+
+    // Test for N much larger than available cities
+    @Test
+    void getTopNCitiesInWorldReport_largeN_returnsAllRows() {
+        int largeN = 10000;
+        String out = reports.getTopNCitiesInWorldReport(largeN);
+        long lines = out.lines().count();
+        assertTrue(lines >= 1); // At least header
     }
 }

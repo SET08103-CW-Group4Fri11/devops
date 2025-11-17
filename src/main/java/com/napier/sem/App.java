@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import com.napier.sem.cities.CityReports;
 import com.napier.sem.tools.DbTools;
 
 import java.sql.SQLException;
@@ -19,8 +20,9 @@ public class App {
                 }
             }));
 
-            App reportSystem = new App();
-
+//            App reportSystem = new App();
+            CityReports cityReports = new CityReports();
+            System.out.println(cityReports.getAllCitiesInDistrictReport(""));
             DbTools.disconnect(); // disconnect from the database
 
         } catch (SQLException | InterruptedException e) {
