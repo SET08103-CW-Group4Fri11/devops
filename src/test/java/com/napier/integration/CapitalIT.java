@@ -22,6 +22,8 @@ public class CapitalIT {
         assertNotNull(out);
         assertFalse(out.startsWith("Error"));
         assertNotEquals("No capital data found", out);
+        assertTrue(out.contains("Name"));  // header present
+        assertTrue(out.contains("Country"));  // header present
         assertTrue(out.contains("Population"));  // header present
     }
 

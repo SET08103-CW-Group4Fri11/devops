@@ -2,11 +2,10 @@ package com.napier.integration;
 
 import com.napier.sem.cities.CityReports;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(DbExtension.class)
 public class CityIT {
@@ -19,6 +18,7 @@ public class CityIT {
     @Test
     void getAllCitiesInWorldReport_hasRows() {
         String out = reports.getAllCitiesInWorldReport();
+        assertNotNull(out);
         assertTrue(
                 out.contains("Name") &&
                         out.contains("Country") &&

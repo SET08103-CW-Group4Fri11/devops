@@ -57,7 +57,14 @@ public class CountryReports {
             try (Statement stmt = DbTools.getCon().createStatement()) {
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
-                    countries.add(new Country(rs.getString("Code"), rs.getString("Name"), rs.getString("Continent"), rs.getString("Region"), rs.getInt("population"), rs.getString("Capital")));
+                    countries.add(new Country(
+                            rs.getString("Code"),
+                            rs.getString("Name"),
+                            rs.getString("Continent"),
+                            rs.getString("Region"),
+                            rs.getInt("Population"),
+                            rs.getString("Capital")
+                    ));
                 }
                 return countries;
             } catch (SQLException e) {
@@ -71,7 +78,14 @@ public class CountryReports {
                 }
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
-                    countries.add(new Country(rs.getString("Code"), rs.getString("Name"), rs.getString("Continent"), rs.getString("Region"), rs.getInt("population"), rs.getString("Capital")));
+                    countries.add(new Country(
+                            rs.getString("Code"),
+                            rs.getString("Name"),
+                            rs.getString("Continent"),
+                            rs.getString("Region"),
+                            rs.getInt("Population"),
+                            rs.getString("Capital")
+                    ));
                 }
                 return countries;
             } catch (SQLException e) {
