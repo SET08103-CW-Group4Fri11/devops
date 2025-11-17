@@ -4,11 +4,10 @@ import com.napier.sem.countries.CountryReports;
 import com.napier.sem.tools.DbTools;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
 import java.sql.SQLException;
 
-public class CountryIntegrationTests {
+public class CountryIT {
     static App reportSystem;
     static CountryReports countryReport;
     @BeforeAll
