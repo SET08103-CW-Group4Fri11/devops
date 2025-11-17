@@ -1,17 +1,15 @@
 package com.napier.integration;
 
 import com.napier.sem.cities.CityReports;
-import com.napier.sem.tools.DbTools;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class CityIT extends DbIntegrationTestBase {
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+@ExtendWith(DbExtension.class)
+public class CityIT {
 
     CityReports reports = new CityReports();
 
