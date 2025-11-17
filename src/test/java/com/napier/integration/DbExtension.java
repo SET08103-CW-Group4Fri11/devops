@@ -1,26 +1,67 @@
-// File: `src/test/java/com/napier/integration/DbExtension.java`
+// java
 package com.napier.integration;
 
 import com.napier.sem.tools.DbTools;
-import org.junit.jupiter.api.extension.BeforeAllCallback;
-import org.junit.jupiter.api.extension.AfterAllCallback;
-import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.*;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.lang.reflect.AnnotatedElement;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-public class DbExtension implements BeforeAllCallback, AfterAllCallback {
-    private static final AtomicInteger activeClasses = new AtomicInteger(0);
+public class DbExtension implements BeforeAllCallback, AfterAllCallback, BeforeEachCallback, AfterEachCallback {
+
+    private static final AtomicBoolean GLOBAL_CONNECTED = new AtomicBoolean(false);
+    private static final Object HOOK_LOCK = new Object();
+
+    private DbScope.Scope resolveScope(ExtensionContext context) {
+        Optional<AnnotatedElement> elemOpt = context.getElement();
+        if (elemOpt.isPresent()) {
+            DbScope ann = elemOpt.get().getAnnotation(DbScope.class);
+            if (ann != null) return ann.value();
+        }
+        Optional<Class<?>> clsOpt = context.getTestClass();
+        if (clsOpt.isPresent()) {
+            DbScope ann = clsOpt.get().getAnnotation(DbScope.class);
+            if (ann != null) return ann.value();
+        }
+        return DbScope.Scope.GLOBAL;
+    }
 
     @Override
     public void beforeAll(ExtensionContext context) throws Exception {
-        if (activeClasses.getAndIncrement() == 0) {
-            DbTools.connect();
+        if (resolveScope(context) == DbScope.Scope.GLOBAL) {
+            if (GLOBAL_CONNECTED.compareAndSet(false, true)) {
+                DbTools.connect();
+                synchronized (HOOK_LOCK) {
+                    // register a single shutdown hook to close DB once per JVM
+                    Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                        if (GLOBAL_CONNECTED.compareAndSet(true, false)) {
+                            try {
+                                DbTools.disconnect();
+                            } catch (Exception ignored) { }
+                        }
+                    }));
+                }
+            }
         }
     }
 
     @Override
     public void afterAll(ExtensionContext context) throws Exception {
-        if (activeClasses.decrementAndGet() == 0) {
+        // Do not disconnect here for GLOBAL scope; shutdown hook will handle final disconnect.
+        // PER_TEST disconnects in afterEach below.
+    }
+
+    @Override
+    public void beforeEach(ExtensionContext context) throws Exception {
+        if (resolveScope(context) == DbScope.Scope.PER_TEST) {
+            DbTools.connect();
+        }
+    }
+
+    @Override
+    public void afterEach(ExtensionContext context) throws Exception {
+        if (resolveScope(context) == DbScope.Scope.PER_TEST) {
             DbTools.disconnect();
         }
     }
