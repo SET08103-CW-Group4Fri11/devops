@@ -1,23 +1,29 @@
 package com.napier.sem.populationReports;
-import com.napier.sem.cities.City;
+
 import com.napier.sem.tools.DbTools;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
+
 public class PopulationReports {
-    //private ArrayList<Population> Populations;
-    public ArrayList<Population> runPopulationQuery(String query, Object... params) throws SQLException, InterruptedException, RuntimeException {
+
+    /**
+     * Runs an population query and returns an list of population objects.
+     */
+    public ArrayList<Population> runPopulationQuery(String query, Object... params)
+            throws SQLException, InterruptedException {
+
         if (DbTools.getCon() == null) {
             throw new SQLException("No DB connection. Call DbTools.connect() before executing queries.");
         }
+
         ArrayList<Population> populations = new ArrayList<>();
 
+        // No parameters
         if (params == null || params.length == 0) {
             try (Statement stmt = DbTools.getCon().createStatement()) {
                 ResultSet rs = stmt.executeQuery(query);
+
                 while (rs.next()) {
                     populations.add(new Population(
                             rs.getString("Name"),
@@ -26,16 +32,18 @@ public class PopulationReports {
                             rs.getLong("NonCityPopulation")
                     ));
                 }
-                return populations;
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
             }
-        } else {
+        }
+        // With parameters
+        else {
             try (PreparedStatement pstmt = DbTools.getCon().prepareStatement(query)) {
+
                 for (int i = 0; i < params.length; i++) {
                     pstmt.setObject(i + 1, params[i]);
                 }
+
                 ResultSet rs = pstmt.executeQuery();
+
                 while (rs.next()) {
                     populations.add(new Population(
                             rs.getString("Name"),
@@ -44,115 +52,116 @@ public class PopulationReports {
                             rs.getLong("NonCityPopulation")
                     ));
                 }
-                return populations;
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
             }
+        }
+
+        return populations;
+    }
+    /**
+     * Returns a population report depending on the area type
+     */
+    public String getPopulationReport(String areaType) {
+        switch (areaType.toLowerCase()) {
+            case "continent":
+                return getContinentPopulationReport();
+            case "region":
+                return getRegionPopulationReport();
+            case "country":
+                return getCountryPopulationReport();
+            default:
+                return "Invalid area type. Use: continent, region, or country.";
         }
     }
-    public String getPopulationReport(String areaType, Connection con) throws SQLException{//remove
 
-        if (areaType.equals("continent")){
-            List<Population> continents = getContinentPopulationReport(con);
-            for (Population p : continents) {
-                p.displayReport();
-            }
-        }
-        if (areaType.equals("region")){
-            List<Population> region = getRegionPopulationReport(con);
-            for (Population p : region) {
-                p.displayReport();
-            }
-        }
-        if (areaType.equals("country")){
-            List<Population> country = getCountryPopulationReport(con);
-            for (Population p : country) {
-                p.displayReport();
-            }
+    /**
+     * Formats a list of population objects
+     */
+    public String formatPopulationReport(ArrayList<Population> list) {
+        StringBuilder sb = new StringBuilder();
+
+        if (list == null || list.isEmpty()) {
+            return "No population data found.\n";
         }
 
+        sb.append(String.format("%-25s %-15s %-15s %-15s%n", "Name", "Total Pop", "City Pop", "Non-City Pop"));
+        sb.append("\n");
 
+        for (Population p : list) {
+            sb.append(String.format("%-25s %-15d %-15d %-15d%n",
+                    p.getName(),
+                    p.getTotalPopulation(),
+                    p.getCityPopulation(),
+                    p.getNonCityPopulation()
+            ));
+        }
+
+        return sb.toString();
     }
-    public List<Population> getContinentPopulationReport(Connection con) throws SQLException {
-        List<Population> list = new ArrayList<Population>();
 
-        String sql =
-                "SELECT continent, " +
-                        "SUM(country.Population) AS totalPopulation, " +
-                        "SUM(city.Population) AS cityPopulation, " +
-                        "(SUM(country.Population) - SUM(city.Population)) AS nonCityPopulation " +
+
+    /**
+     * Population of each continent.
+     */
+    public String getContinentPopulationReport() {
+        String query =
+                "SELECT continent AS Name, " +
+                        "SUM(country.Population) AS TotalPopulation, " +
+                        "SUM(city.Population) AS CityPopulation, " +
+                        "(SUM(country.Population) - SUM(city.Population)) AS NonCityPopulation " +
                         "FROM country " +
                         "LEFT JOIN city ON country.Code = city.CountryCode " +
                         "GROUP BY continent;";
 
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
-
-        while (rs.next()) {
-            String name = rs.getString("continent");
-            long total = rs.getLong("totalPopulation");
-            long city = rs.getLong("cityPopulation");
-            long nonCity = rs.getLong("nonCityPopulation");
-
-            Population pop = new Population(name, total, city, nonCity);
-            list.add(pop);
+        try {
+            ArrayList<Population> data = runPopulationQuery(query);
+            return formatPopulationReport(data);
+        } catch (Exception e) {
+            return "Error generating continent population report: " + e.getMessage();
         }
-
-        return list;
     }
-    public List<Population> getRegionPopulationReport(Connection con) throws SQLException {
-        List<Population> list = new ArrayList<Population>();
 
-        String sql =
-                "SELECT region, " +
-                        "SUM(country.Population) AS totalPopulation, " +
-                        "SUM(city.Population) AS cityPopulation, " +
-                        "(SUM(country.Population) - SUM(city.Population)) AS nonCityPopulation " +
+
+    /**
+     * Population of each region.
+     */
+    public String getRegionPopulationReport() {
+        String query =
+                "SELECT region AS Name, " +
+                        "SUM(country.Population) AS TotalPopulation, " +
+                        "SUM(city.Population) AS CityPopulation, " +
+                        "(SUM(country.Population) - SUM(city.Population)) AS NonCityPopulation " +
                         "FROM country " +
                         "LEFT JOIN city ON country.Code = city.CountryCode " +
                         "GROUP BY region;";
 
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
-
-        while (rs.next()) {
-            String name = rs.getString("region");
-            long total = rs.getLong("totalPopulation");
-            long city = rs.getLong("cityPopulation");
-            long nonCity = rs.getLong("nonCityPopulation");
-
-            list.add(new Population(name, total, city, nonCity));
+        try {
+            ArrayList<Population> data = runPopulationQuery(query);
+            return formatPopulationReport(data);
+        } catch (Exception e) {
+            return "Error generating region population report: " + e.getMessage();
         }
-
-        return list;
     }
-    public List<Population> getCountryPopulationReport(Connection con) throws SQLException {
-        List<Population> list = new ArrayList<Population>();
 
-        String sql =
-                "SELECT country.Name AS name, " +
-                        "country.Population AS totalPopulation, " +
-                        "SUM(city.Population) AS cityPopulation, " +
-                        "(country.Population - SUM(city.Population)) AS nonCityPopulation " +
+
+    /**
+     * Population of each country
+     */
+    public String getCountryPopulationReport() {
+        String query =
+                "SELECT country.Name AS Name, " +
+                        "country.Population AS TotalPopulation, " +
+                        "SUM(city.Population) AS CityPopulation, " +
+                        "(country.Population - SUM(city.Population)) AS NonCityPopulation " +
                         "FROM country " +
                         "LEFT JOIN city ON country.Code = city.CountryCode " +
                         "GROUP BY country.Code;";
 
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
-
-        while (rs.next()) {
-            String name = rs.getString("name");
-            long total = rs.getLong("totalPopulation");
-            long city = rs.getLong("cityPopulation");
-            long nonCity = rs.getLong("nonCityPopulation");
-
-            list.add(new Population(name, total, city, nonCity));
+        try {
+            ArrayList<Population> data = runPopulationQuery(query);
+            return formatPopulationReport(data);
+        } catch (Exception e) {
+            return "Error generating country population report: " + e.getMessage();
         }
-
-        return list;
     }
 
-
 }
-
