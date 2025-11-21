@@ -57,7 +57,14 @@ public class CountryReports {
             try (Statement stmt = DbTools.getCon().createStatement()) {
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
-                    countries.add(new Country(rs.getString("Code"), rs.getString("Name"), rs.getString("Continent"), rs.getString("Region"), rs.getInt("population"), rs.getString("Capital")));
+                    countries.add(new Country(
+                            rs.getString("Code"),
+                            rs.getString("Name"),
+                            rs.getString("Continent"),
+                            rs.getString("Region"),
+                            rs.getInt("Population"),
+                            rs.getString("Capital")
+                    ));
                 }
                 return countries;
             } catch (SQLException e) {
@@ -71,7 +78,14 @@ public class CountryReports {
                 }
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
-                    countries.add(new Country(rs.getString("Code"), rs.getString("Name"), rs.getString("Continent"), rs.getString("Region"), rs.getInt("population"), rs.getString("Capital")));
+                    countries.add(new Country(
+                            rs.getString("Code"),
+                            rs.getString("Name"),
+                            rs.getString("Continent"),
+                            rs.getString("Region"),
+                            rs.getInt("Population"),
+                            rs.getString("Capital")
+                    ));
                 }
                 return countries;
             } catch (SQLException e) {
@@ -87,7 +101,7 @@ public class CountryReports {
     public String allCountriesInWorldReport() {
         String query = "Select c.code, c.name, c.continent, c.region, c.population, ci.name as Capital from country c join city ci on c.capital = ci.id order by c.population desc;";
         try {
-            System.out.println("A report with all the countries in the world");
+//            System.out.println("A report with all the countries in the world");
             countryList = runCountryQuery(query);
         } catch (SQLException | InterruptedException | RuntimeException e) {
             System.out.println("Something went wrong with the query: " + e.getMessage());
@@ -101,9 +115,12 @@ public class CountryReports {
      * @return a String containing a formatted report with all countries in the specified continent
      */
     public String allCountriesInContinentReport(String continent) {
+        if (continent==null || continent.isEmpty()) {
+            return "No countries found";
+        }
         String query = "Select c.code, c.name, c.continent, c.region, c.population, ci.name as Capital from country c join city ci on c.capital = ci.id where c.continent = " + "'" + continent + "'" + " order by c.population desc;";
         try {
-            System.out.println("A report with all the countries in a continent");
+//            System.out.println("A report with all the countries in a continent");
             countryList = runCountryQuery(query);
         } catch (SQLException | InterruptedException | RuntimeException e) {
             System.out.println(e.getMessage());
@@ -114,36 +131,81 @@ public class CountryReports {
     /**
      * Prints out a report showing all countries in a region, arranged by population, largest to smallest
      * @param region A string containing the region
+     * @return a String containing a formatted report with all countries in the specified region
      */
-    public void allCountriesInRegionReport(String region) {
-        System.out.println("A report with all the countries in a region");
+    public String allCountriesInRegionReport(String region) {
+        if (region==null || region.isEmpty()) {
+            return "No countries found";
+        }
+        String query = "Select c.code, c.name, c.continent, c.region, c.population, ci.name as Capital from country c join city ci on c.capital = ci.id where c.region = " + "'" + region + "'" + " order by c.population desc;";
+        try {
+//            System.out.println("A report with all the countries in a region");
+            countryList = runCountryQuery(query);
+        } catch (SQLException | InterruptedException | RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+        return formatCountryReport(countryList);
     }
 
     /**
      * Prints a report with the inputted number of countries, arranged by population
-     * @param numberOfCountries Integer
+     * @param numberOfCountries Integer number of countries to be displayed in the report
+     * @return a String containing a formatted report with the top n countries in the world
      */
-    public void topNCountriesInWorldReport(int numberOfCountries) {
-        System.out.println("A report with the top " + numberOfCountries + " countries in the world");
+    public String topNCountriesInWorldReport(int numberOfCountries) {
+        if (numberOfCountries <= 0) {
+            return "No countries found";
+        }
+        String query = "Select c.code, c.name, c.continent, c.region, c.population, ci.name as Capital from country c join city ci on c.capital = ci.id order by c.population desc limit " + numberOfCountries + ";";
+        try {
+//            System.out.println("A report with the top " + numberOfCountries + " countries in the world");
+            countryList = runCountryQuery(query);
+            return formatCountryReport(countryList);
+        } catch (SQLException | InterruptedException | RuntimeException e) {
+            System.out.println("Something went wrong with the query: " + e.getMessage());
+            return "Error generating top N countries report.";
+        }
+//        System.out.println("A report with the top " + numberOfCountries + " countries in the world");
     }
-
 
     /**
      * Prints a report  of the top n countries belonging to a continent
-     * @param numberOfCountries
-     * @param continent
+     * @param numberOfCountries Integer number of countries to be displayed in the report
+     * @param continent String name of the continent
      */
-    public void topNCountriesInContinentReport(int numberOfCountries, String continent) {
-        System.out.println("A report with the top " + numberOfCountries + " countries in a continent");
+    public String topNCountriesInContinentReport(int numberOfCountries, String continent) {
+        if (numberOfCountries <= 0 || continent==null || continent.isEmpty()) {
+            return "No countries found";
+        }
+        String query = "Select c.code, c.name, c.continent, c.region, c.population, ci.name as Capital from country c join city ci on c.capital = ci.id where c.continent = " + "'" + continent + "'" + " order by c.population desc limit " + numberOfCountries + ";";
+        try {
+//            System.out.println("A report with the top " + numberOfCountries + " countries in a continent");
+            countryList = runCountryQuery(query);
+            return formatCountryReport(countryList);
+        } catch (SQLException | InterruptedException | RuntimeException e) {
+            System.out.println("Something went wrong with the query: " + e.getMessage());
+            return "Error generating top N countries in continent report.";
+        }
     }
 
     /**
      * Prints a report  of the top n countries belonging to a region
-     * @param numberOfCountries
-     * @param region
+     * @param numberOfCountries Integer number of countries to be displayed in the report
+     * @param region String name of the region
      */
-    public void topNCountriesInRegionReport(int numberOfCountries, String region) {
-        System.out.println("A report with the top " + numberOfCountries + " countries in a region");
+    public String topNCountriesInRegionReport(int numberOfCountries, String region) {
+        if (numberOfCountries <= 0 || region==null || region.isEmpty()) {
+            return "No countries found";
+        }
+        String query = "Select c.code, c.name, c.continent, c.region, c.population, ci.name as Capital from country c join city ci on c.capital = ci.id where c.region = " + "'" + region + "'" + " order by c.population desc limit " + numberOfCountries + ";";
+        try {
+//            System.out.println("A report with the top " + numberOfCountries + " countries in a region");
+            countryList = runCountryQuery(query);
+            return formatCountryReport(countryList);
+        } catch (SQLException | InterruptedException | RuntimeException e) {
+            System.out.println("Something went wrong with the query: " + e.getMessage());
+            return "Error generating top N countries in region report.";
+        }
     }
 
 //    /**
