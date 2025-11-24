@@ -3,14 +3,14 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import com.napier.sem.population.Population;
-import com.napier.sem.population.PopulationReports;
+import com.napier.sem.populationReports.Population;
+import com.napier.sem.populationReports.PopulationReports;
 
 //import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PopulationTests {
+public class PopulationTest {
 
     static PopulationReports reportsTest;
     static Population europePop;
