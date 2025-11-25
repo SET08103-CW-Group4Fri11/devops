@@ -32,7 +32,7 @@ jobs:
           distribution: 'adopt'
       - name: Run Integration Tests
         run: |
-          docker compose up -d db
+          docker compose up -d db app
           mvn -Dtest=com.napier.integration.** test
           docker compose down
 

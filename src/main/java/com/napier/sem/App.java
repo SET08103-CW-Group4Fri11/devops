@@ -24,6 +24,7 @@ public class App {
                     System.err.println("Error during DB disconnect: " + e.getMessage());
                 }
             }));
+//            DbTools.disconnect(); // disconnect from the database
 
         } catch (SQLException | InterruptedException e) {
             System.err.println("Failed to connect to the database: " + e.getMessage());
