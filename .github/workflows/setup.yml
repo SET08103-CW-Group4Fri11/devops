@@ -63,9 +63,14 @@ jobs:
         run: docker compose up -d
       - name: Health check or wait
         run: |
-          # Example: wait for app to be ready, or run a curl health check
-          sleep 10
-          curl --fail http://localhost:8080 || exit 1
+          for i in {1..30}; do
+            if curl --fail http://localhost:8080; then
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "App did not start in time"
+          exit 1
       - name: Stop containers
         run: docker compose down
       - name: View logs
