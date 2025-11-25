@@ -2,12 +2,17 @@ package com.napier.sem;
 
 import com.napier.sem.cities.CityReports;
 import com.napier.sem.tools.DbTools;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.SQLException;
 
+@SpringBootApplication
 public class App {
     // private static boolean closeApp = false;
     public static void main(String[] args) {
+
+        SpringApplication.run(App.class, args);
         try {
             DbTools.connect(); // connect to the database
 
@@ -19,11 +24,6 @@ public class App {
                     System.err.println("Error during DB disconnect: " + e.getMessage());
                 }
             }));
-
-//            App reportSystem = new App();
-//            CityReports cityReports = new CityReports();
-//            System.out.println(cityReports.getAllCitiesInDistrictReport(""));
-            DbTools.disconnect(); // disconnect from the database
 
         } catch (SQLException | InterruptedException e) {
             System.err.println("Failed to connect to the database: " + e.getMessage());

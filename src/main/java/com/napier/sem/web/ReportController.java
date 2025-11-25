@@ -11,6 +11,11 @@ public class ReportController {
 
     private final PopulationReports populationReports = new PopulationReports();
 
+    @GetMapping("/")
+    public String index() {
+        return "index";
+    }
+
     @GetMapping("/population/continent")
     public String continentReport(Model model) {
         String output = populationReports.getContinentPopulationReport();
