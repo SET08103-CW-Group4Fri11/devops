@@ -54,7 +54,12 @@ public class CityReports {
             try (Statement stmt = DbTools.getCon().createStatement()) {
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
-                    cities.add(new City(rs.getString("Name"), rs.getString("Country"), rs.getString("District"), rs.getInt("Population")));
+                    cities.add(new City(
+                            rs.getString("Name"),
+                            rs.getString("Country"),
+                            rs.getString("District"),
+                            rs.getInt("Population")
+                    ));
                 }
                 return cities;
             } catch (SQLException e) {
@@ -68,7 +73,12 @@ public class CityReports {
                 }
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
-                    cities.add(new City(rs.getString("Name"), rs.getString("Country"), rs.getString("District"), rs.getInt("Population")));
+                    cities.add(new City(
+                            rs.getString("Name"),
+                            rs.getString("Country"),
+                            rs.getString("District"),
+                            rs.getInt("Population")
+                    ));
                 }
                 return cities;
             } catch (SQLException e) {
