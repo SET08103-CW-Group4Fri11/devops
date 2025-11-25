@@ -82,10 +82,10 @@ public class CapitalReports {
         if (capitals == null || capitals.isEmpty()) return "No capital data found";
 
         StringBuilder capitalReport = new StringBuilder();
-        capitalReport.append(String.format("%-30s %-30s %-12s%n", "Name", "Country", "Population"));
+        capitalReport.append(String.format("%-35s %-40s %-10s%n", "Name", "Country", "Population"));
         for (Capital capital : capitals) {
             if (capital == null) continue;
-            capitalReport.append(String.format("%-30s %-30s %-12d%n", capital.getName(), capital.getCountry(), capital.getPopulation()));
+            capitalReport.append(String.format("%-35s %-40s %-10d%n", capital.getName(), capital.getCountry(), capital.getPopulation()));
         }
         return capitalReport.toString();
     }
