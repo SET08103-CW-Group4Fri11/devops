@@ -17,7 +17,6 @@ jobs:
           distribution: 'adopt'
       - name: Run Unit Tests
         run: mvn -Dtest=com.napier.unit.** test
-
   Integration-Tests:
     name: Integration Tests
     runs-on: ubuntu-22.04
@@ -33,12 +32,12 @@ jobs:
           distribution: 'adopt'
       - name: Run Integration Tests
         run: |
-          docker compose up -d db
+          docker compose up -d db app
           mvn -Dtest=com.napier.integration.** test
           docker compose down
 
-  Build-and-Run-App:
-    name: Build, Run, Shutdown App and Create Logs
+  Build:
+    name: Compose up and Logs
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
@@ -58,25 +57,7 @@ jobs:
       - name: Build with Maven without tests
         run: mvn clean package -DskipTests
         # Runs docker compose up but stops all containers when any container stops, which will happen with the app container first
-      - name: 🚀 Run Docker compose in Background
-          # Run in background with -d and give the app a minute to run
-        run: docker compose up -d
-      - name: ⏳ Wait and Smoke Test
-              # Give the app a moment to start, then check it's running
-        run: |
-          echo "Waiting for 30 seconds for the app to start..."
-          sleep 30 
-        # You can add a simple health check here if you have one, e.g.:
-        # curl -v http://localhost:8080/health
-          echo "App is now running in the background."
-      - name: 🛑 Shutdown Docker Compose Stack
-              # Use docker compose down to stop and remove all containers gracefully
-        if: always() # IMPORTANT: Always run this step to clean up, even if the smoke test fails
-        run: |
-          echo "Stopping Docker Compose stack..."
-          docker compose down
-      - name: View logs (Optional)
-              # Check logs before shutdown (container names must be known)
-        run: |
-          echo "No logs available after down, consider viewing them before the shutdown step if needed."
-        # If you still need logs, you might use 'docker logs devops-container' right before 'docker compose down'
+      - name: Run Docker compose
+        run: docker compose up --abort-on-container-exit
+      - name: View logs
+        run: docker logs devops-container
