@@ -60,6 +60,13 @@ jobs:
         run: mvn clean package -DskipTests
         # Runs docker compose up but stops all containers when any container stops, which will happen with the app container first
       - name: Run Docker compose
-        run: docker compose up --abort-on-container-exit
+        run: docker compose up -d
+      - name: Health check or wait
+        run: |
+          # Example: wait for app to be ready, or run a curl health check
+          sleep 10
+          curl --fail http://localhost:8080 || exit 1
+      - name: Stop containers
+        run: docker compose down
       - name: View logs
         run: docker logs devops-container
