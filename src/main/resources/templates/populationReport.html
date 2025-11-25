@@ -10,7 +10,17 @@
     <div class="text-center my-4">
         <h1>Population Report</h1>
         <p>Select a report type:</p>
-        <pre th:text="${getContinentPopulationReport}">Report will appear here.</pre>
+<!--        <pre th:text="${getContinentPopulationReport}">Report will appear here.</pre>-->
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="d-flex flex-column" style="width: 600px;">
+            <!-- The population of people living in cities in each continent Report -->
+            <a class="btn btn-info mb-2" th:href="@{/population/continent-cities}">The population of people living in cities in each continent.</a>
+            <!-- The population of people living in cities in each region Report -->
+            <a class="btn btn-info mb-2" th:href="@{/population/region-cities}">The population of people living in cities in each region.</a>
+            <!-- The population of people living in cities in each country Report -->
+            <a class="btn btn-info mb-2" th:href="@{/population/country-cities}">The population of people, people living in cities, and people not living in cities in each country.</a>
+        </div>
     </div>
     <!-- Output -->
     <div class="d-flex justify-content-center">
