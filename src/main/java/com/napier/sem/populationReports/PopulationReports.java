@@ -87,6 +87,9 @@ public class PopulationReports {
         sb.append("\n");
 
         for (Population p : list) {
+            if (p == null) {
+                continue;   // thos is a fix to skip null entries to prevent a null pointer error.
+            }
             sb.append(String.format("%-25s %-15d %-15d %-15d%n",
                     p.getName(),
                     p.getTotalPopulation(),
