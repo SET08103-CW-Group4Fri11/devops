@@ -2,13 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
+    <title>Index</title>
 </head>
 <body>
-<h1>Welcome to the Population Reports App</h1>
+<h1>Welcome to Group 4 Project</h1>
 <p>
-    <a th:href="@{/population/continent}">View Continent Population Report</a>
+    Select a report to view:
 </p>
-    <button>Continent Report</button>
+<div style="display: flex; flex-direction: column;">
+    <button th:href="@{/country}">Country Report</button>
+    <button th:href="@{/city}">City Report</button>
+    <button th:href="@{/capital}">Capital Report</button>
+    <button th:href="@{/population}">Population Report</button>
+</div>
 </body>
 </html>
