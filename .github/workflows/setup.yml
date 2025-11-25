@@ -61,7 +61,6 @@ jobs:
       - name: 🚀 Run Docker compose in Background
           # Run in background with -d and give the app a minute to run
         run: docker compose up -d
-
       - name: ⏳ Wait and Smoke Test
               # Give the app a moment to start, then check it's running
         run: |
@@ -70,14 +69,12 @@ jobs:
         # You can add a simple health check here if you have one, e.g.:
         # curl -v http://localhost:8080/health
           echo "App is now running in the background."
-
       - name: 🛑 Shutdown Docker Compose Stack
               # Use docker compose down to stop and remove all containers gracefully
         if: always() # IMPORTANT: Always run this step to clean up, even if the smoke test fails
         run: |
           echo "Stopping Docker Compose stack..."
           docker compose down
-
       - name: View logs (Optional)
               # Check logs before shutdown (container names must be known)
         run: |
