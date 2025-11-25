@@ -4,188 +4,238 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>City Report</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
-    <div class="text-center my-4">
-        <h1>City Report</h1>
-        <p>Select a report type:</p>
-    </div>
-    <div class="d-flex justify-content-center">
-        <div class="d-flex flex-column" style="width: 600px;">
-            <!-- All the cities in the world Report -->
-            <a class="btn btn-info mb-2" th:href="@{/cities/all-world}">All the cities in the world organised by largest population to smallest.</a>
-            <!-- All the cities in a continent Report -->
-            <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#allContinent" role="button"
-               aria-expanded="false" aria-controls="allContinent">
-                All the cities in a continent organised by largest population to smallest.
-            </a>
-            <div class="collapse" id="allContinent">
-                <div class="card card-body">
-                    <form th:action="@{/cities/all-continent}" method="get">
-                        <div class="mb-3">
-                            <label for="continent" class="form-label">Continent:</label>
-                            <input type="text" class="form-control" id="continent" name="continent" placeholder="e.g., Asia">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
+<div class="d-flex">
+    <div class="container" style="width: 200px;">
+        <button class="btn btn-primary mt-5 w-100" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
+            Menu
+        </button>
+        <!-- OffCanvas -->
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-            <!-- All the cities in a region Report -->
-            <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#allRegion" role="button"
-               aria-expanded="false" aria-controls="allRegion">
-                All the cities in a region organised by largest population to smallest.
-            </a>
-            <div class="collapse" id="allRegion">
-                <div class="card card-body">
-                    <form th:action="@{/cities/all-region}" method="get">
-                        <div class="mb-3">
-                            <label for="region" class="form-label">Region:</label>
-                            <input type="text" class="form-control" id="region" name="region" placeholder="e.g., Middle East">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+            <div class="offcanvas-body">
+                <div class="d-flex justify-content-center">
+                    <a class="btn btn-secondary my-5 w-75" th:href="@{/}">Home</a>
                 </div>
-            </div>
-            <!-- All the cities in a country Report -->
-            <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#allCountry" role="button"
-               aria-expanded="false" aria-controls="allCountry">
-                All the cities in a country organised by largest population to smallest.
-            </a>
-            <div class="collapse" id="allCountry">
-                <div class="card card-body">
-                    <form th:action="@{/cities/all-country}" method="get">
-                        <div class="mb-3">
-                            <label for="country" class="form-label">Country:</label>
-                            <input type="text" class="form-control" id="country" name="country" placeholder="Canada">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>
-            <!-- All the cities in a district Report -->
-            <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#allDistrict" role="button"
-               aria-expanded="false" aria-controls="allDistrict">
-                All the cities in a district organised by largest population to smallest.
-            </a>
-            <div class="collapse" id="allDistrict">
-                <div class="card card-body">
-                    <form th:action="@{/cities/all-district}" method="get">
-                        <div class="mb-3">
-                            <label for="district" class="form-label">District:</label>
-                            <input type="text" class="form-control" id="district" name="district" placeholder="e.g., California">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>
-            <!-- The top N populated cities in the world -->
-            <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#nWorld" role="button"
-               aria-expanded="false" aria-controls="nWorld">
-                The top N populated cities in the world where N is provided by the user.
-            </a>
-            <div class="collapse" id="nWorld">
-                <div class="card card-body">
-                    <form th:action="@{/cities/n-world}" method="get">
-                        <div class="mb-3">
-                            <label for="n-w" class="form-label">N:</label>
-                            <input type="text" class="form-control" id="n-w" name="n-w" placeholder="e.g., 10">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>
-            <!-- The top N populated cities in a continent -->
-            <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#nContinent" role="button"
-               aria-expanded="false" aria-controls="nContinent">
-                The top N populated cities in a continent where N is provided by the user.
-            </a>
-            <div class="collapse" id="nContinent">
-                <div class="card card-body">
-                    <form th:action="@{/cities/n-continent}" method="get">
-                        <div class="mb-3">
-                            <label for="continent-n" class="form-label">Continent:</label>
-                            <input type="text" class="form-control" id="continent-n" name="continent-n" placeholder="e.g., Asia">
-                        </div>
-                        <div class="mb-3">
-                            <label for="n-c" class="form-label">N:</label>
-                            <input type="text" class="form-control" id="n-c" name="n-c" placeholder="e.g., 10">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>
-            <!-- The top N populated cities in a region -->
-            <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#nRegion" role="button"
-               aria-expanded="false" aria-controls="nRegion">
-                The top N populated cities in a region where N is provided by the user.
-            </a>
-            <div class="collapse" id="nRegion">
-                <div class="card card-body">
-                    <form th:action="@{/cities/n-region}" method="get">
-                        <div class="mb-3">
-                            <label for="region-n" class="form-label">Region:</label>
-                            <input type="text" class="form-control" id="region-n" name="region-n" placeholder="e.g., Middle East">
-                        </div>
-                        <div class="mb-3">
-                            <label for="n-r" class="form-label">N:</label>
-                            <input type="text" class="form-control" id="n-r" name="n-r" placeholder="e.g., 10">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>
-            <!-- The top N populated cities in a country -->
-            <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#nCountry" role="button"
-               aria-expanded="false" aria-controls="nCountry">
-                The top N populated cities in a country where N is provided by the user.
-            </a>
-            <div class="collapse" id="nCountry">
-                <div class="card card-body">
-                    <form th:action="@{/cities/n-country}" method="get">
-                        <div class="mb-3">
-                            <label for="country-n" class="form-label">Country:</label>
-                            <input type="text" class="form-control" id="country-n" name="country-n" placeholder="e.g., Canada">
-                        </div>
-                        <div class="mb-3">
-                            <label for="n-ct" class="form-label">N:</label>
-                            <input type="text" class="form-control" id="n-ct" name="n-ct" placeholder="e.g., 10">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>
-            <!-- The top N populated cities in a district -->
-            <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#nDistrict" role="button"
-               aria-expanded="false" aria-controls="nDistrict">
-                The top N populated cities in a district where N is provided by the user.
-            </a>
-            <div class="collapse" id="nDistrict">
-                <div class="card card-body">
-                    <form th:action="@{/cities/n-district}" method="get">
-                        <div class="mb-3">
-                            <label for="district-n" class="form-label">District:</label>
-                            <input type="text" class="form-control" id="district-n" name="district-n" placeholder="e.g., California">
-                        </div>
-                        <div class="mb-3">
-                            <label for="n-d" class="form-label">N:</label>
-                            <input type="text" class="form-control" id="n-d" name="n-d" placeholder="e.g., 10">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+                <div class="d-flex flex-column">
+                    <div class="d-flex justify-content-center">
+                        <a class="btn btn-secondary mb-2 w-75" th:href="@{/countries}">Country Report</a>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a class="btn btn-secondary mb-2 w-75" th:href="@{/cities}">City Report</a>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a class="btn btn-secondary mb-2 w-75" th:href="@{/capitals}">Capital Report</a>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a class="btn btn-secondary mb-2 w-75" th:href="@{/population}">Population Report</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Output -->
-    <div class="d-flex justify-content-center">
-        <h2><pre th:text="${title}">Report title will appear here.</pre></h2>
-    </div>
-    <div class="d-flex justify-content-center">
-        <div class="d-flex flex-column">
-            <pre th:text="${output}">Report will appear here.</pre>
+    <div class="container">
+        <div class="text-center my-4">
+            <h1>City Report</h1>
+            <p>Select a report type:</p>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="d-flex flex-column" style="width: 600px;">
+                <!-- All the cities in the world Report -->
+                <a class="btn btn-info mb-2" th:href="@{/cities/all-world}">All the cities in the world organised by
+                    largest population to smallest.</a>
+                <!-- All the cities in a continent Report -->
+                <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#allContinent" role="button"
+                   aria-expanded="false" aria-controls="allContinent">
+                    All the cities in a continent organised by largest population to smallest.
+                </a>
+                <div class="collapse" id="allContinent">
+                    <div class="card card-body">
+                        <form th:action="@{/cities/all-continent}" method="get">
+                            <div class="mb-3">
+                                <label for="continent" class="form-label">Continent:</label>
+                                <input type="text" class="form-control" id="continent" name="continent"
+                                       placeholder="e.g., Asia">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- All the cities in a region Report -->
+                <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#allRegion" role="button"
+                   aria-expanded="false" aria-controls="allRegion">
+                    All the cities in a region organised by largest population to smallest.
+                </a>
+                <div class="collapse" id="allRegion">
+                    <div class="card card-body">
+                        <form th:action="@{/cities/all-region}" method="get">
+                            <div class="mb-3">
+                                <label for="region" class="form-label">Region:</label>
+                                <input type="text" class="form-control" id="region" name="region"
+                                       placeholder="e.g., Middle East">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- All the cities in a country Report -->
+                <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#allCountry" role="button"
+                   aria-expanded="false" aria-controls="allCountry">
+                    All the cities in a country organised by largest population to smallest.
+                </a>
+                <div class="collapse" id="allCountry">
+                    <div class="card card-body">
+                        <form th:action="@{/cities/all-country}" method="get">
+                            <div class="mb-3">
+                                <label for="country" class="form-label">Country:</label>
+                                <input type="text" class="form-control" id="country" name="country"
+                                       placeholder="Canada">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- All the cities in a district Report -->
+                <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#allDistrict" role="button"
+                   aria-expanded="false" aria-controls="allDistrict">
+                    All the cities in a district organised by largest population to smallest.
+                </a>
+                <div class="collapse" id="allDistrict">
+                    <div class="card card-body">
+                        <form th:action="@{/cities/all-district}" method="get">
+                            <div class="mb-3">
+                                <label for="district" class="form-label">District:</label>
+                                <input type="text" class="form-control" id="district" name="district"
+                                       placeholder="e.g., California">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- The top N populated cities in the world -->
+                <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#nWorld" role="button"
+                   aria-expanded="false" aria-controls="nWorld">
+                    The top N populated cities in the world where N is provided by the user.
+                </a>
+                <div class="collapse" id="nWorld">
+                    <div class="card card-body">
+                        <form th:action="@{/cities/n-world}" method="get">
+                            <div class="mb-3">
+                                <label for="n-w" class="form-label">N:</label>
+                                <input type="text" class="form-control" id="n-w" name="n-w" placeholder="e.g., 10">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- The top N populated cities in a continent -->
+                <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#nContinent" role="button"
+                   aria-expanded="false" aria-controls="nContinent">
+                    The top N populated cities in a continent where N is provided by the user.
+                </a>
+                <div class="collapse" id="nContinent">
+                    <div class="card card-body">
+                        <form th:action="@{/cities/n-continent}" method="get">
+                            <div class="mb-3">
+                                <label for="continent-n" class="form-label">Continent:</label>
+                                <input type="text" class="form-control" id="continent-n" name="continent-n"
+                                       placeholder="e.g., Asia">
+                            </div>
+                            <div class="mb-3">
+                                <label for="n-c" class="form-label">N:</label>
+                                <input type="text" class="form-control" id="n-c" name="n-c" placeholder="e.g., 10">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- The top N populated cities in a region -->
+                <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#nRegion" role="button"
+                   aria-expanded="false" aria-controls="nRegion">
+                    The top N populated cities in a region where N is provided by the user.
+                </a>
+                <div class="collapse" id="nRegion">
+                    <div class="card card-body">
+                        <form th:action="@{/cities/n-region}" method="get">
+                            <div class="mb-3">
+                                <label for="region-n" class="form-label">Region:</label>
+                                <input type="text" class="form-control" id="region-n" name="region-n"
+                                       placeholder="e.g., Middle East">
+                            </div>
+                            <div class="mb-3">
+                                <label for="n-r" class="form-label">N:</label>
+                                <input type="text" class="form-control" id="n-r" name="n-r" placeholder="e.g., 10">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- The top N populated cities in a country -->
+                <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#nCountry" role="button"
+                   aria-expanded="false" aria-controls="nCountry">
+                    The top N populated cities in a country where N is provided by the user.
+                </a>
+                <div class="collapse" id="nCountry">
+                    <div class="card card-body">
+                        <form th:action="@{/cities/n-country}" method="get">
+                            <div class="mb-3">
+                                <label for="country-n" class="form-label">Country:</label>
+                                <input type="text" class="form-control" id="country-n" name="country-n"
+                                       placeholder="e.g., Canada">
+                            </div>
+                            <div class="mb-3">
+                                <label for="n-ct" class="form-label">N:</label>
+                                <input type="text" class="form-control" id="n-ct" name="n-ct" placeholder="e.g., 10">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- The top N populated cities in a district -->
+                <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#nDistrict" role="button"
+                   aria-expanded="false" aria-controls="nDistrict">
+                    The top N populated cities in a district where N is provided by the user.
+                </a>
+                <div class="collapse" id="nDistrict">
+                    <div class="card card-body">
+                        <form th:action="@{/cities/n-district}" method="get">
+                            <div class="mb-3">
+                                <label for="district-n" class="form-label">District:</label>
+                                <input type="text" class="form-control" id="district-n" name="district-n"
+                                       placeholder="e.g., California">
+                            </div>
+                            <div class="mb-3">
+                                <label for="n-d" class="form-label">N:</label>
+                                <input type="text" class="form-control" id="n-d" name="n-d" placeholder="e.g., 10">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Output -->
+        <div class="d-flex justify-content-center">
+            <h2>
+                <pre th:text="${title}">Report title will appear here.</pre>
+            </h2>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="d-flex flex-column">
+                <pre th:text="${output}">Report will appear here.</pre>
+            </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 </body>
 </html>
