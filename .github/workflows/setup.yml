@@ -30,6 +30,8 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
+      - name: Build app JAR
+        run: mvn clean package -DskipTests
       - name: Run Integration Tests
         run: |
           docker compose up -d db app
