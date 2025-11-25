@@ -11,5 +11,109 @@
         <h1>Capital Report</h1>
         <p>Select a report type:</p>
     </div>
+    <div class="d-flex justify-content-center">
+        <div class="d-flex flex-column" style="width: 600px;">
+            <!-- All the capital cities in the world Report -->
+            <a class="btn btn-info mb-2" th:href="@{/capitals/all-world}">All the capital cities in the world organised by largest population to smallest.</a>
+            <!-- All the capital cities in a continent Report -->
+            <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#allContinent" role="button"
+               aria-expanded="false" aria-controls="allContinent">
+                All the capital cities in a continent organised by largest population to smallest.
+            </a>
+            <div class="collapse" id="allContinent">
+                <div class="card card-body">
+                    <form th:action="@{/capitals/all-continent}" method="get">
+                        <div class="mb-3">
+                            <label for="continent" class="form-label">Continent:</label>
+                            <input type="text" class="form-control" id="continent" name="continent" placeholder="e.g., Asia">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <!-- All the capital cities in a region Report -->
+            <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#allRegion" role="button"
+               aria-expanded="false" aria-controls="allRegion">
+                All the capital cities in a region organised by largest population to smallest.
+            </a>
+            <div class="collapse" id="allRegion">
+                <div class="card card-body">
+                    <form th:action="@{/capitals/all-region}" method="get">
+                        <div class="mb-3">
+                            <label for="region" class="form-label">Region:</label>
+                            <input type="text" class="form-control" id="region" name="region" placeholder="e.g., Middle East">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <!-- The top N populated capital cities in the world -->
+            <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#nWorld" role="button"
+               aria-expanded="false" aria-controls="nWorld">
+                The top N populated capital cities in the world where N is provided by the user.
+            </a>
+            <div class="collapse" id="nWorld">
+                <div class="card card-body">
+                    <form th:action="@{/capitals/n-world}" method="get">
+                        <div class="mb-3">
+                            <label for="n-w" class="form-label">N:</label>
+                            <input type="text" class="form-control" id="n-w" name="n-w" placeholder="e.g., 10">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <!-- The top N populated capital cities in a continent -->
+            <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#nContinent" role="button"
+               aria-expanded="false" aria-controls="nContinent">
+                The top N populated capital cities in a continent where N is provided by the user.
+            </a>
+            <div class="collapse" id="nContinent">
+                <div class="card card-body">
+                    <form th:action="@{/capitals/n-continent}" method="get">
+                        <div class="mb-3">
+                            <label for="n-c" class="form-label">N:</label>
+                            <input type="text" class="form-control" id="n-c" name="n-c" placeholder="e.g., 10">
+                        </div>
+                        <div class="mb-3">
+                            <label for="continent-n" class="form-label">Continent:</label>
+                            <input type="text" class="form-control" id="continent-n" name="continent-n" placeholder="e.g., Asia">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <!-- The top N populated capital cities in a region -->
+            <a class="btn btn-info mb-2" data-bs-toggle="collapse" href="#nRegion" role="button"
+               aria-expanded="false" aria-controls="nRegion">
+                The top N populated capital cities in a region where N is provided by the user.
+            </a>
+            <div class="collapse" id="nRegion">
+                <div class="card card-body">
+                    <form th:action="@{/capitals/n-region}" method="get">
+                        <div class="mb-3">
+                            <label for="n-r" class="form-label">N:</label>
+                            <input type="text" class="form-control" id="n-r" name="n-r" placeholder="e.g., 10">
+                        </div>
+                        <div class="mb-3">
+                            <label for="region-n" class="form-label">Region:</label>
+                            <input type="text" class="form-control" id="region-n" name="region-n" placeholder="e.g., Middle East">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Output -->
+    <div class="d-flex justify-content-center">
+        <h2><pre th:text="${title}">Report title will appear here.</pre></h2>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="d-flex flex-column">
+            <pre th:text="${output}">Report will appear here.</pre>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
