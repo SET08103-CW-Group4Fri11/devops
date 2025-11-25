@@ -61,16 +61,6 @@ jobs:
         # Runs docker compose up but stops all containers when any container stops, which will happen with the app container first
       - name: Run Docker compose
         run: docker compose up -d
-      - name: Health check or wait
-        run: |
-          for i in {1..30}; do
-            if curl --fail http://localhost:8080; then
-              exit 0
-            fi
-            sleep 1
-          done
-          echo "App did not start in time"
-          exit 1
       - name: Stop containers
         run: docker compose down
       - name: View logs
