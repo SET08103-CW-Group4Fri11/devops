@@ -6,16 +6,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+// Controller for handling city-related web requests
 @Controller
 public class CityController {
 
+    // Instantiate the CityReports class
     private final CityReports cityReports = new CityReports();
 
+    // Endpoint to display the city report page
     @GetMapping("/cities")
     public String cityReport() {
         return "cityReport";
     }
 
+    // Endpoint to get all cities in the world report
     @GetMapping("/cities/all-world")
     public String getAllCitiesInWorldReport(Model model) {
         String output = cityReports.getAllCitiesInWorldReport();
@@ -24,6 +28,7 @@ public class CityController {
         return "cityReport";
     }
 
+    // Endpoint to get all cities in a specific continent report
     @GetMapping("/cities/all-continent")
     public String getAllCitiesInContinentReport(@RequestParam("continent") String continent, Model model) {
         String output = cityReports.getAllCitiesInContinentReport(continent);
@@ -32,6 +37,7 @@ public class CityController {
         return "cityReport";
     }
 
+    // Endpoint to get all cities in a specific region report
     @GetMapping("/cities/all-region")
     public String getAllCitiesInRegionReport(@RequestParam("region") String region, Model model) {
         String output = cityReports.getAllCitiesInRegionReport(region);
@@ -40,6 +46,7 @@ public class CityController {
         return "cityReport";
     }
 
+    // Endpoint to get all cities in a specific country report
     @GetMapping("/cities/all-country")
     public String getAllCitiesInCountryReport(@RequestParam("country") String country, Model model) {
         String output = cityReports.getAllCitiesInCountryReport(country);
@@ -48,6 +55,7 @@ public class CityController {
         return "cityReport";
     }
 
+    // Endpoint to get all cities in a specific district report
     @GetMapping("/cities/all-district")
     public String getAllCitiesInDistrictReport(@RequestParam("district") String district, Model model) {
         String output = cityReports.getAllCitiesInDistrictReport(district);
@@ -56,6 +64,7 @@ public class CityController {
         return "cityReport";
     }
 
+    // Endpoint to get top N cities in the world report
     @GetMapping("/cities/n-world")
     public String getNCitiesInWorldReport(@RequestParam("n-w") int n, Model model) {
         String output = cityReports.getTopNCitiesInWorldReport(n);
@@ -64,6 +73,7 @@ public class CityController {
         return "cityReport";
     }
 
+    // Endpoint to get top N cities in a specific continent report
     @GetMapping("/cities/n-continent")
     public String getNCitiesInContinentReport(@RequestParam("n-c") int n, @RequestParam("continent-n") String continent, Model model) {
         String output = cityReports.getTopNCitiesInContinentReport(n, continent);
@@ -72,6 +82,7 @@ public class CityController {
         return "cityReport";
     }
 
+    // Endpoint to get top N cities in a specific region report
     @GetMapping("/cities/n-region")
     public String getNCitiesInRegionReport(@RequestParam("n-r") int n, @RequestParam("region-n") String region, Model model) {
         String output = cityReports.getTopNCitiesInRegionReport(n, region);
@@ -80,6 +91,7 @@ public class CityController {
         return "cityReport";
     }
 
+    // Endpoint to get top N cities in a specific country report
     @GetMapping("/cities/n-country")
     public String getNCitiesInCountryReport(@RequestParam("n-ct") int n, @RequestParam("country-n") String country, Model model) {
         String output = cityReports.getTopNCitiesInCountryReport(n, country);
@@ -88,6 +100,7 @@ public class CityController {
         return "cityReport";
     }
 
+    // Endpoint to get top N cities in a specific district report
     @GetMapping("/cities/n-district")
     public String getNCitiesInDistrictReport(@RequestParam("n-d") int n, @RequestParam("district-n") String district, Model model) {
         String output = cityReports.getTopNCitiesInDistrictReport(n, district);
