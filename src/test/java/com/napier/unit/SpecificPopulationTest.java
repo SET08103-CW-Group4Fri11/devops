@@ -1,14 +1,18 @@
 package com.napier.unit;
+
 import com.napier.sem.populationReports.SpecificPopulationReports;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
+// Unit tests for SpecificPopulationReports class
 public class SpecificPopulationTest {
 
+    // Test data
     static SpecificPopulationReports specificPopulationReportsTest;
 
+    // Initialize test data before all tests
     @BeforeAll
     public static void init() {
         System.out.println("----- Test For SpecificPopulationReports Class -----");

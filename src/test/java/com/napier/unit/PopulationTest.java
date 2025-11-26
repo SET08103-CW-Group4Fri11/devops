@@ -1,4 +1,5 @@
 package com.napier.unit;
+
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -10,8 +11,10 @@ import com.napier.sem.populationReports.PopulationReports;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Unit tests for PopulationReports class
 public class PopulationTest {
 
+    // Test data
     static PopulationReports reportsTest;
     static Population europePop;
     static Population asiaPop;
@@ -24,6 +27,7 @@ public class PopulationTest {
     static ArrayList<Population> edgeList;
     static ArrayList<Population> bigList;
 
+    // Initialize test data before all tests
     @BeforeAll
     static void init() {
         reportsTest = new PopulationReports();
@@ -87,7 +91,7 @@ public class PopulationTest {
         assertTrue(report.contains("0"));
     }
 
-    // tests extremly large population values
+    // tests extremely large population values
     @Test
     void formatPopulationReport_bigValues_printsMaxLong() {
         String report = reportsTest.formatPopulationReport(bigList);

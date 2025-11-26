@@ -1,4 +1,5 @@
 package com.napier.unit;
+
 import com.napier.sem.countries.Country;
 import com.napier.sem.countries.CountryReports;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,7 +10,10 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+// Unit tests for CountryReports class
 public class CountryTests {
+
+    // Test data
     static CountryReports reportsTest;
     static Country country1;
     static Country country2;
@@ -19,6 +23,7 @@ public class CountryTests {
     static ArrayList<Country> listWithNullCountry;
     static ArrayList<Country> emptyCountriesList;
 
+    // Initialize test data before all tests
     @BeforeAll
     static void init(){
         reportsTest = new CountryReports();
@@ -34,6 +39,8 @@ public class CountryTests {
         listWithNullCountry.add(nullCountry);
         listWithNullCountry.add(country2);
     }
+
+    // Test cases title print out
     @Test
     void formatCountryReports()
     {
@@ -41,6 +48,7 @@ public class CountryTests {
         System.out.println(reportsTest.formatCountryReport(listWithCountries));
     }
 
+    // Test null list handling
     @Test
     void formatCountryReportsNullList()
     {
@@ -48,6 +56,7 @@ public class CountryTests {
         System.out.println("Test with null list ok\n");
     }
 
+    // Test empty list handling
     @Test
     void formatCountryReportsEmptyList()
     {
@@ -55,6 +64,7 @@ public class CountryTests {
         System.out.println("Test with empty list ok\n");
     }
 
+    // Test list with a null country intercalated
     @Test
     void formatCountryReportsListWithNullCountry()
     {

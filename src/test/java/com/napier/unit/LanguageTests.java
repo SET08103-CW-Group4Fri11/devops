@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+// Unit tests for LanguageReports class
 public class LanguageTests {
+
     // Test data
     static LanguageReports languageReports;
     static Language spanishLanguage;
@@ -21,6 +23,7 @@ public class LanguageTests {
     static ArrayList<Language> edgeLanguageList;
     static ArrayList<Language> bigLanguageList;
 
+    // Initialize test data before all tests
     @BeforeAll
     static void init() {
         // Initialize test data

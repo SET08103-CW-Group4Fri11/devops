@@ -8,9 +8,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+// Integration tests for CapitalReports class
 @ExtendWith(DbExtension.class)
 public class CapitalIT {
 
+    // Shared CapitalReports instance for all tests
     CapitalReports reports = new CapitalReports();
 
     // Naming convention: methodName_condition_expectedResult

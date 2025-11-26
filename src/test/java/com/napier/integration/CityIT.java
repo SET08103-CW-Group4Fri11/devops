@@ -7,9 +7,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Integration tests for CityReports class
 @ExtendWith(DbExtension.class)
 public class CityIT {
 
+    // Shared CityReports instance for all tests
     CityReports reports = new CityReports();
 
     // Naming convention: methodName_condition_expectedResult

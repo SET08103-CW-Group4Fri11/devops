@@ -7,9 +7,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Integration tests for CountryReports class
 @ExtendWith(DbExtension.class)
 public class CountryIT {
 
+    // Shared CountryReports instance for all tests
     static CountryReports countryReport = new CountryReports();
 
     // Naming convention: methodName_condition_expectedResult
