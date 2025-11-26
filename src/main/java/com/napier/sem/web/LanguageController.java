@@ -11,12 +11,12 @@ public class LanguageController {
     private final LanguageReports languageReports = new LanguageReports();
 
     @GetMapping("/languages")
-    public String languageReport() { return "languages"; }
+    public String languageReport() { return "languageReport"; }
 
-    @GetMapping("/languages/top5")
+    @GetMapping("/languages/world")
     public String getTop5Languages(Model model) {
-        String output = languageReports.getLanguageReport();
-        model.addAttribute("title", "A number of people who speak Chinese, English, Hindi, Spanish, and Arabic as a percentage of the world population.");
+        String output = languageReports.getChEnHiSpArLanguageSpeakersPercentageOfWorldReport();
+        model.addAttribute("title", "A number of people who speak Chinese, \nEnglish, Hindi, Spanish, and Arabic \nas a percentage of the world population.");
         model.addAttribute("output", output);
         return "languageReport";
     }

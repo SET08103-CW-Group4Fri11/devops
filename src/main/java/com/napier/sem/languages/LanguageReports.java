@@ -89,8 +89,8 @@ public class LanguageReports {
      * Print out a report that provides the number of people who speak Chinese, English, Hindi, Spanish, and Arabic as a percentage of the world population from the greatest number to smallest.
      * @return A formatted string report of the languages
      */
-    public String getLanguageReport() {
-        String query = LanguageSqlQueries.LANGUAGES_BY_SPEAKERS;
+    public String getChEnHiSpArLanguageSpeakersPercentageOfWorldReport() {
+        String query = LanguageSqlQueries.CH_EN_HI_SP_AR_SPEAKERS_WORLD;
         try {
             languages = runLanguageQuery(query);
             return formatLanguageReport(languages);
