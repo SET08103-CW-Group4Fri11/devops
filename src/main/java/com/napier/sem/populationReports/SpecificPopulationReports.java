@@ -23,8 +23,21 @@ public class SpecificPopulationReports {
             }
         }
     }
-    /** This method returns the population of the specified population area and the name of it. */
-    /** Example useage - long pop = getPopulation("city", "Dawson City") */
+    /**
+     * This method returns the population of the specified population area and the name of it.
+     * -
+     * Example Usage:
+     * -
+     * SpecificPopulationReports example = new SpecificPopulationReports();
+     * String name = "Example Name";
+     * String type = "Example Type";
+     * try {
+     *      Long pop = example.getPopulation(type, name);
+     *      System.out.println("Population of " + name + " (" + type + "): " + pop);
+     *} catch (SQLException e) {
+     *      System.err.println("Error fetching population for " + name + ": " + e.getMessage());
+     *}
+     **/
     public Long getPopulation(String type, String name) throws SQLException {
         String sql;
 
