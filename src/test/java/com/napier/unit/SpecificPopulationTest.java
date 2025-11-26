@@ -1,9 +1,11 @@
 package com.napier.unit;
 import com.napier.sem.populationReports.SpecificPopulationReports;
+import org.junit.jupiter.api.BeforeAll;
 
 import java.sql.SQLException;
 
 public class SpecificPopulationTest {
+    @BeforeAll
     public static void init() {
         // test data in a list
         String[][] list = {
