@@ -98,5 +98,5 @@ public class LanguageReports {
             System.out.println("Error retrieving language report: " + e.getMessage());
             return "Error retrieving language report.";
         }
-        }
+    }
 }
