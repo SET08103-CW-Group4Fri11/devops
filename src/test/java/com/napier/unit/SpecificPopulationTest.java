@@ -1,12 +1,22 @@
 package com.napier.unit;
 import com.napier.sem.populationReports.SpecificPopulationReports;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
 public class SpecificPopulationTest {
+
+    static SpecificPopulationReports specificPopulationReportsTest;
+
     @BeforeAll
     public static void init() {
+        System.out.println("----- Test For SpecificPopulationReports Class -----");
+        specificPopulationReportsTest = new SpecificPopulationReports();
+    }
+
+    @Test
+    void testPopulationData() {
         // test data in a list
         String[][] list = {
                 {"city", "Anchorage"},
@@ -19,12 +29,10 @@ public class SpecificPopulationTest {
                 {"country", "France"},
                 {"district", "Île-de-France"}
         };
-        SpecificPopulationReports specificPopulationReportsTest = new SpecificPopulationReports();
-
-        // this loops through the test data
-        for (int i = 0; i < list.length; i++) {
-            String type = list[i][0];
-            String name = list[i][1];
+        //loops through all the test data
+        for (String[] entry : list) {
+            String type = entry[0];
+            String name = entry[1];
             try {
                 Long pop = specificPopulationReportsTest.getPopulation(type, name);
                 System.out.println("Population of " + name + " (" + type + "): " + pop);
