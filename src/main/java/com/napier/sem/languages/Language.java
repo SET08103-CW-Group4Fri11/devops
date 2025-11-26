@@ -5,9 +5,9 @@ package com.napier.sem.languages;
  */
 public class Language {
     // Attributes
-    private String language;
-    private int speakers;
-    private double percentage;
+    private final String language;
+    private final int speakers;
+    private final double percentage;
 
     /**
      * @param language the language name
