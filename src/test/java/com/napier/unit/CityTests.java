@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CityTests {
-
+    // Test data
     static CityReports reportsTest;
     static City cityOfEdinburgh;
     static City cityOfLondon;
@@ -23,6 +23,7 @@ public class CityTests {
 
     @BeforeAll
     static void init(){
+        // Initialize test data
         reportsTest = new CityReports();
         cityOfEdinburgh = new City("Edinburgh", "United Kingdom", "Scotland", 488050);
         cityOfLondon = new City("London", "United Kingdom", "England", 8982000);

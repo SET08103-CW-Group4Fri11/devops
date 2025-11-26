@@ -26,10 +26,10 @@ public class CountryReports {
         if (countries == null || countries.isEmpty()) {
             countryReport.append("No countries found");
         } else {
-            countryReport.append(String.format("%-4s %-60s %-15s %-30s %-10s %-15s%n", "Code", "Name", "Continent", "Region", "Population", "Capital"));
+            countryReport.append(String.format("%-4s %-45s %-15s %-30s %-10s %-15s%n", "Code", "Name", "Continent", "Region", "Population", "Capital"));
             for (Country country : countries) {
                 if (country != null) {
-                    countryReport.append(String.format("%-4s %-60s %-15s %-30s %-10d %-15s%n", country.getCode(), country.getName(), country.getContinent(), country.getRegion(), country.getPopulation(), country.getCapital()));
+                    countryReport.append(String.format("%-4s %-45s %-15s %-30s %-10d %-15s%n", country.getCode(), country.getName(), country.getContinent(), country.getRegion(), country.getPopulation(), country.getCapital()));
                 }
             }
         }

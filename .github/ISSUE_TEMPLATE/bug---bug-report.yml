@@ -1,0 +1,93 @@
+name: Bug Report
+description: Tell us what went wrong with this bug report form.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for collaborating with us and taking the time to fill out this report!
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: In the case that we need more info, is there an email we can use to contact you?
+      placeholder: ex. email@example.com
+    validations:
+      required: false
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Tell us what you see!
+      value: "Bug description:"
+    validations:
+      required: true
+  - type: textarea
+    id: when-happened
+    attributes:
+      label: When did it happen?
+      description: Tell us what you were doing when the bug occurred
+      placeholder: Tell us what you were doing!
+      value: "This is how it happened:"
+    validations:
+      required: true
+  - type: dropdown
+    id: bug-type
+    attributes:
+      label: Bug type
+      description: Is it an intermittent or a consistent bug
+      options:
+        - Consistent
+        - Intermittent
+        - I don't know, I'm useless
+      default: 0
+    validations:
+      required: true
+  - type: textarea
+    id: steps-replicate
+    attributes:
+      label: How to replicate the bug
+      description: Have you managed to find some steps to replicate it? Tell us!
+      placeholder: A series of steps to replicate the bug
+      value: "1. Look closely at the sun for an hour:"
+    validations:
+      required: false
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: What version of our software are you running?
+      options:
+        - Latest
+        - 1.0.0.1
+        - How would I know?
+      default: 0
+    validations:
+      required: true
+  - type: textarea
+    id: browsers
+    attributes:
+      label: The machine that ran into this bug
+      description: Any specs from your machine that you would like to disclose? i.e. OS, hardware...
+      placeholder: My machine specs are
+      value: "Potato PC"
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/SET08103-CW-Group4Fri11/devops?tab=coc-ov-file#readme).
+      options:
+        - label: I agree to follow this project's Code of Conduct, I'm this submissive.
+          required: true
