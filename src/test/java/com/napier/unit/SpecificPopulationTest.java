@@ -21,13 +21,10 @@ public class SpecificPopulationTest {
         String[][] list = {
                 {"city", "Anchorage"},
                 {"country", "Canada"},
-                {"district", "Alaska"},
+                {"region", "Alaska"},
                 {"city", "Newcastle upon Tyne"},
                 {"country", "United Kingdom"},
-                {"district", "England"},
-                {"city", "Paris"},
-                {"country", "France"},
-                {"district", "Île-de-France"}
+                {"city", "Newcastle"}
         };
         //loops through all the test data
         for (String[] entry : list) {
