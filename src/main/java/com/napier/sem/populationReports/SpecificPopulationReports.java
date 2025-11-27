@@ -63,7 +63,7 @@ public class SpecificPopulationReports {
     }
 
     public String formatPopulationReport(String type, String name, Long population) {
-        if (type == null || name == null || type.isEmpty() || name.isEmpty() || population == null) {
+        if (type == null || name == null || type.isEmpty() || population == null) {
             return "No population data found";
         }
 

@@ -27,6 +27,41 @@
                 <!-- The population of people living in cities in each country Report -->
                 <a class="btn btn-info mb-2" th:href="@{/population/country-cities}">The population of people, people
                     living in cities, and people not living in cities in each country.</a>
+                <!-- The population of the World Report -->
+                <a class="btn btn-info mb-2" th:href="@{/population/world}">The population of the World.</a>
+                <!-- The population of a specific Continent Report -->
+                <button class="btn btn-info mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#continent"
+                        aria-expanded="false" aria-controls="continent">
+                    The population of a specific Continent.
+                </button>
+                <div class="collapse" id="continent">
+                    <div class="card card-body">
+                        <form th:action="@{/population/continent}" method="get">
+                            <div class="mb-3">
+                                <label for="continent-name" class="form-label">Continent:</label>
+                                <input type="text" class="form-control" id="continent-name" name="continent" placeholder="e.g., Asia" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Get Continent Population</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- The population of a specific Region Report -->
+                <button class="btn btn-info mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#region"
+                        aria-expanded="false" aria-controls="region">
+                    The population of a specific Region.
+                </button>
+                <div class="collapse" id="region">
+                    <div class="card card-body">
+                        <form th:action="@{/population/region}" method="get">
+                            <div class="mb-3">
+                                <label for="region-name" class="form-label">Region:</label>
+                                <input type="text" class="form-control" id="region-name" name="region" placeholder="e.g., Eastern Europe" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Get Region Population</button>
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </div>
         <!-- Output -->
