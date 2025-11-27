@@ -23,10 +23,10 @@ public class CityReports {
         if (cities == null || cities.isEmpty()) {
             cityReport.append("No cities found");
         } else {
-            cityReport.append(String.format("%-35s %-30s %-30s %-15s%n", "Name", "Country", "District", "Population"));
+            cityReport.append(String.format("%-35s %-40s %-30s %-10s%n", "Name", "Country", "District", "Population"));
             for (City city : cities) {
                 if (city != null) {
-                    cityReport.append(String.format("%-35s %-30s %-30s %-15d%n", city.getName(), city.getCountry(), city.getDistrict(), city.getPopulation()));
+                    cityReport.append(String.format("%-35s %-40s %-30s %-10d%n", city.getName(), city.getCountry(), city.getDistrict(), city.getPopulation()));
                 }
             }
         }
@@ -54,7 +54,12 @@ public class CityReports {
             try (Statement stmt = DbTools.getCon().createStatement()) {
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
-                    cities.add(new City(rs.getString("Name"), rs.getString("Country"), rs.getString("District"), rs.getInt("Population")));
+                    cities.add(new City(
+                            rs.getString("Name"),
+                            rs.getString("Country"),
+                            rs.getString("District"),
+                            rs.getInt("Population")
+                    ));
                 }
                 return cities;
             } catch (SQLException e) {
@@ -68,7 +73,12 @@ public class CityReports {
                 }
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
-                    cities.add(new City(rs.getString("Name"), rs.getString("Country"), rs.getString("District"), rs.getInt("Population")));
+                    cities.add(new City(
+                            rs.getString("Name"),
+                            rs.getString("Country"),
+                            rs.getString("District"),
+                            rs.getInt("Population")
+                    ));
                 }
                 return cities;
             } catch (SQLException e) {

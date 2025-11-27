@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Index</title>
+    <title>Language Report</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
@@ -12,16 +12,24 @@
     <div th:replace="components/nav :: navigation"></div>
     <div class="container">
         <div class="text-center my-4">
-            <h1>Welcome to Group 4 Project</h1>
+            <h1>Language Report</h1>
             <p>Select a report type:</p>
         </div>
         <div class="d-flex justify-content-center">
-            <div class="d-flex flex-column" style="width: 300px;">
-                <a class="btn btn-primary mb-2" th:href="@{/countries}">Country Report</a>
-                <a class="btn btn-primary mb-2" th:href="@{/cities}">City Report</a>
-                <a class="btn btn-primary mb-2" th:href="@{/capitals}">Capital Report</a>
-                <a class="btn btn-primary mb-2" th:href="@{/population}">Population Report</a>
-                <a class="btn btn-primary mb-2" th:href="@{/languages}">Language Report</a>
+            <div class="d-flex flex-column" style="width: 600px;">
+                <!-- Top 5 languages in the world Report -->
+                <a class="btn btn-info mb-2" th:href="@{/languages/world}">A number of people who speak Chinese, English, Hindi, Spanish, and Arabic as a percentage of the world population.</a>
+            </div>
+        </div>
+        <!-- Output -->
+        <div class="d-flex justify-content-center">
+            <h2>
+                <pre th:text="${title}">Report title will appear here.</pre>
+            </h2>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="d-flex flex-column">
+                <pre th:text="${output}">Report data will appear here.</pre>
             </div>
         </div>
     </div>
@@ -29,6 +37,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
-
 </body>
 </html>

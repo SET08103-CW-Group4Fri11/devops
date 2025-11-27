@@ -10,20 +10,22 @@ import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Integration test to verify database connection using environment variables
 @ExtendWith(DbExtension.class)
 public class DatabaseConnectionIT {
 
+    // Helper methods to get environment variables
     private String dbUrl() {
         return System.getenv("DB_URL");
     }
-
     private String dbUser() {
         return System.getenv("DB_USER");
     }
-
     private String dbPass() {
         return System.getenv("DB_PASS");
     }
+
+    // Test to ensure environment variables are set
     @Test
     void environment_variables_set() {
         Assumptions.assumeTrue(dbUrl() != null && !dbUrl().isEmpty(), "DB_URL not set");
@@ -31,6 +33,7 @@ public class DatabaseConnectionIT {
         Assumptions.assumeTrue(dbPass() != null && !dbPass().isEmpty(), "DB_PASS not set");
     }
 
+    // Test to verify database connection can be established
     @Test
     void connection_established() throws SQLException {
         assertTrue(DbTools.isConnected(), "Database connection not established");

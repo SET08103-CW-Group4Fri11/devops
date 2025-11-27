@@ -1,6 +1,7 @@
 package com.napier.sem.web;
 
 import com.napier.sem.populationReports.PopulationReports;
+import com.napier.sem.populationReports.SpecificPopulationReports;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PopulationController {
 
+    // Instantiate the report classes
     private final PopulationReports populationReports = new PopulationReports();
+    private final SpecificPopulationReports specificPopulationReports = new SpecificPopulationReports();
 
     @GetMapping("/population")
     public String populationReport() {
@@ -38,4 +41,12 @@ public class PopulationController {
         model.addAttribute("output", output);
         return "populationReport";
     }
+
+//    @GetMapping("/population/world")
+//    public String getWorldPopulationReport(Model model) {
+//        String output = specificPopulationReports.getPopulation("world", "");
+//        model.addAttribute("title", "World Population Report");
+//        model.addAttribute("output", output);
+//        return "populationReport";
+//    }
 }

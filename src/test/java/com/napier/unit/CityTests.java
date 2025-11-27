@@ -1,4 +1,5 @@
 package com.napier.unit;
+
 import java.util.ArrayList;
 
 import com.napier.sem.cities.City;
@@ -8,8 +9,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Unit tests for CityReports class
 public class CityTests {
 
+    // Test data
     static CityReports reportsTest;
     static City cityOfEdinburgh;
     static City cityOfLondon;
@@ -21,8 +24,10 @@ public class CityTests {
     static ArrayList<City> edgeList;
     static ArrayList<City> bigList;
 
+    // Initialize test data before all tests
     @BeforeAll
     static void init(){
+        // Initialize test data
         reportsTest = new CityReports();
         cityOfEdinburgh = new City("Edinburgh", "United Kingdom", "Scotland", 488050);
         cityOfLondon = new City("London", "United Kingdom", "England", 8982000);

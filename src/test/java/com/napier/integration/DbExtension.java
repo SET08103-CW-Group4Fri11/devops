@@ -10,11 +10,14 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+// JUnit 5 extension to manage database connections based on DbScope annotation
 public class DbExtension implements BeforeAllCallback, AfterAllCallback, BeforeEachCallback, AfterEachCallback {
 
+    // Track global connection state
     private static final AtomicBoolean GLOBAL_CONNECTED = new AtomicBoolean(false);
     private static final Object HOOK_LOCK = new Object();
 
+    // Determine the DbScope for the current test context
     private DbScope.Scope resolveScope(ExtensionContext context) {
         Optional<AnnotatedElement> elemOpt = context.getElement();
         if (elemOpt.isPresent()) {
@@ -29,6 +32,7 @@ public class DbExtension implements BeforeAllCallback, AfterAllCallback, BeforeE
         return DbScope.Scope.GLOBAL;
     }
 
+    // Before all tests in the context
     @Override
     public void beforeAll(ExtensionContext context) throws Exception {
         if (resolveScope(context) == DbScope.Scope.GLOBAL) {
@@ -48,12 +52,13 @@ public class DbExtension implements BeforeAllCallback, AfterAllCallback, BeforeE
         }
     }
 
+    // After all tests in the context
     @Override
     public void afterAll(ExtensionContext context) throws Exception {
-        // Do not disconnect here for GLOBAL scope; shutdown hook will handle final disconnect.
-        // PER_TEST disconnects in afterEach below.
+
     }
 
+    // Before each test
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         if (resolveScope(context) == DbScope.Scope.PER_TEST) {
@@ -61,6 +66,7 @@ public class DbExtension implements BeforeAllCallback, AfterAllCallback, BeforeE
         }
     }
 
+    // After each test
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
         if (resolveScope(context) == DbScope.Scope.PER_TEST) {
