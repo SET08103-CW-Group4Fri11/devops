@@ -61,4 +61,26 @@ public class SpecificPopulationReports {
                 throw new IllegalArgumentException("Unknown type: " + type);
         }
     }
+
+    public String formatPopulationReport(String type, String name, Long population) {
+        if (type == null || name == null || type.isEmpty() || name.isEmpty() || population == null) {
+            return "No population data found";
+        }
+
+        return String.format("Population of %s (%s): %d", name, type, population);
+    }
+
+    public String getPopulationReport(String type, String name) {
+        try {
+            Long population = getPopulation(type, name);
+            return formatPopulationReport(type, name, population);
+        } catch (Exception e) {
+            return "Error getting population data.";
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "SpecificPopulationReports";
+    }
 }
