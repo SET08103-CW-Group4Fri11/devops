@@ -1,6 +1,5 @@
 package com.napier.sem;
 
-import com.napier.sem.populationReports.SpecificPopulationReports;
 import com.napier.sem.tools.DbTools;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,8 +15,6 @@ public class App {
         SpringApplication.run(App.class, args);
         try {
             DbTools.connect(); // connect to the database
-            SpecificPopulationReports specificPopulationReports = new SpecificPopulationReports();
-            System.out.println(specificPopulationReports.getPopulation("world", ""));
             // ensure disconnect on JVM shutdown
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
                 try {

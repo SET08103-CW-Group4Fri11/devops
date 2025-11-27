@@ -74,4 +74,31 @@ public class PopulationController {
         model.addAttribute("output", output);
         return "populationReport";
     }
+
+    // Endpoint to get country specific population report
+    @GetMapping("/population/country")
+    public String getCountrySpecificPopulationReport(@RequestParam("country") String country, Model model) {
+        String output = specificPopulationReports.getPopulationReport("country", country);
+        model.addAttribute("title", country + " Country Population Report");
+        model.addAttribute("output", output);
+        return "populationReport";
+    }
+
+    // Endpoint to get district specific population report
+    @GetMapping("/population/district")
+    public String getDistrictSpecificPopulationReport(@RequestParam("district") String district, Model model) {
+        String output = specificPopulationReports.getPopulationReport("district", district);
+        model.addAttribute("title", district + " District Population Report");
+        model.addAttribute("output", output);
+        return "populationReport";
+    }
+
+    // Endpoint to get city specific population report
+    @GetMapping("/population/city")
+    public String getCitySpecificPopulationReport(@RequestParam("city") String city, Model model) {
+        String output = specificPopulationReports.getPopulationReport("city", city);
+        model.addAttribute("title", city + " City Population Report");
+        model.addAttribute("output", output);
+        return "populationReport";
+    }
 }

@@ -61,7 +61,54 @@
                         </form>
                     </div>
                 </div>
-
+                <!-- The population of a specific Country Report -->
+                <button class="btn btn-info mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#country"
+                        aria-expanded="false" aria-controls="country">
+                    The population of a specific Country.
+                </button>
+                <div class="collapse" id="country">
+                    <div class="card card-body">
+                        <form th:action="@{/population/country}" method="get">
+                            <div class="mb-3">
+                                <label for="country-name" class="form-label">Country:</label>
+                                <input type="text" class="form-control" id="country-name" name="country" placeholder="e.g., France" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Get Country Population</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- The population of a specific District Report -->
+                <button class="btn btn-info mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#district"
+                        aria-expanded="false" aria-controls="district">
+                    The population of a specific District.
+                </button>
+                <div class="collapse" id="district">
+                    <div class="card card-body">
+                        <form th:action="@{/population/district}" method="get">
+                            <div class="mb-3">
+                                <label for="district-name" class="form-label">District:</label>
+                                <input type="text" class="form-control" id="district-name" name="district" placeholder="e.g., California" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Get District Population</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- The population of a specific City Report -->
+                <button class="btn btn-info mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#city"
+                        aria-expanded="false" aria-controls="city">
+                    The population of a specific City.
+                </button>
+                <div class="collapse" id="city">
+                    <div class="card card-body">
+                        <form th:action="@{/population/city}" method="get">
+                            <div class="mb-3">
+                                <label for="city-name" class="form-label">City:</label>
+                                <input type="text" class="form-control" id="city-name" name="city" placeholder="e.g., Tokyo" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Get City Population</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Output -->
