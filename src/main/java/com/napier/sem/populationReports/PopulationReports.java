@@ -57,21 +57,6 @@ public class PopulationReports {
 
         return populations;
     }
-    /**
-     * Returns a population report depending on the area type
-     */
-    public String getPopulationReport(String areaType) {
-        switch (areaType.toLowerCase()) {
-            case "continent":
-                return getContinentPopulationReport();
-            case "region":
-                return getRegionPopulationReport();
-            case "country":
-                return getCountryPopulationReport();
-            default:
-                return "Invalid area type. Use: continent, region, or country.";
-        }
-    }
 
     /**
      * Formats a list of population objects
@@ -106,14 +91,23 @@ public class PopulationReports {
      * Population of each continent.
      */
     public String getContinentPopulationReport() {
-        String query =
-                "SELECT continent AS Name, " +
-                        "SUM(country.Population) AS TotalPopulation, " +
-                        "SUM(city.Population) AS CityPopulation, " +
-                        "(SUM(country.Population) - SUM(city.Population)) AS NonCityPopulation " +
-                        "FROM country " +
-                        "LEFT JOIN city ON country.Code = city.CountryCode " +
-                        "GROUP BY continent;";
+        String query = """
+                SELECT co.Continent AS Name,
+                       co.TotalPopulation,
+                       COALESCE(ci.CityPopulation, 0) AS CityPopulation,
+                       (co.TotalPopulation - COALESCE(ci.CityPopulation, 0)) AS NonCityPopulation
+                FROM (
+                  SELECT Continent, SUM(Population) AS TotalPopulation
+                  FROM country
+                  GROUP BY Continent
+                ) AS co
+                LEFT JOIN (
+                  SELECT country.Continent, SUM(city.Population) AS CityPopulation
+                  FROM city
+                  JOIN country ON city.CountryCode = country.Code
+                  GROUP BY country.Continent
+                ) AS ci ON co.Continent = ci.Continent;
+                """;
 
         try {
             ArrayList<Population> data = runPopulationQuery(query);
