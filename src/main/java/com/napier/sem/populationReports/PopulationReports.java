@@ -106,7 +106,8 @@ public class PopulationReports {
                   FROM city
                   JOIN country ON city.CountryCode = country.Code
                   GROUP BY country.Continent
-                ) AS ci ON co.Continent = ci.Continent;
+                ) AS ci ON co.Continent = ci.Continent
+                ORDER BY co.TotalPopulation DESC;
                 """;
 
         try {
@@ -122,15 +123,21 @@ public class PopulationReports {
      * Population of each region.
      */
     public String getRegionPopulationReport() {
-        String query =
-                "SELECT region AS Name, " +
-                        "SUM(country.Population) AS TotalPopulation, " +
-                        "SUM(city.Population) AS CityPopulation, " +
-                        "(SUM(country.Population) - SUM(city.Population)) AS NonCityPopulation " +
-                        "FROM country " +
-                        "LEFT JOIN city ON country.Code = city.CountryCode " +
-                        "GROUP BY region;";
-
+        String query = """
+                SELECT
+                  c.Region AS Name,
+                  SUM(c.Population) AS TotalPopulation,
+                  COALESCE(SUM(cc.CityPopulation), 0) AS CityPopulation,
+                  SUM(c.Population) - COALESCE(SUM(cc.CityPopulation), 0) AS NonCityPopulation
+                FROM country c
+                LEFT JOIN (
+                  SELECT CountryCode, SUM(Population) AS CityPopulation
+                  FROM city
+                  GROUP BY CountryCode
+                ) cc ON c.Code = cc.CountryCode
+                GROUP BY c.Region
+                ORDER BY TotalPopulation DESC;
+                """;
         try {
             ArrayList<Population> data = runPopulationQuery(query);
             return formatPopulationReport(data);
@@ -144,15 +151,17 @@ public class PopulationReports {
      * Population of each country
      */
     public String getCountryPopulationReport() {
-        String query =
-                "SELECT country.Name AS Name, " +
-                        "country.Population AS TotalPopulation, " +
-                        "SUM(city.Population) AS CityPopulation, " +
-                        "(country.Population - SUM(city.Population)) AS NonCityPopulation " +
-                        "FROM country " +
-                        "LEFT JOIN city ON country.Code = city.CountryCode " +
-                        "GROUP BY country.Code;";
-
+        String query = """
+                SELECT
+                    country.Name AS Name,
+                    country.Population AS TotalPopulation,
+                    COALESCE(SUM(city.Population), 0) AS CityPopulation,
+                    (country.Population - COALESCE(SUM(city.Population), 0)) AS NonCityPopulation
+                FROM country
+                LEFT JOIN city ON country.Code = city.CountryCode
+                GROUP BY country.Code, country.Name, country.Population
+                ORDER BY country.Population DESC;
+        """;
         try {
             ArrayList<Population> data = runPopulationQuery(query);
             return formatPopulationReport(data);
