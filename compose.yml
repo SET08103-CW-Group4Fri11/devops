@@ -7,6 +7,8 @@ services:
       - db
     networks:
       - backend
+    ports:
+      - "10800:8080"
     environment:
       DB_URL: ${DB_URL}
       DB_USER: ${DB_USER}
