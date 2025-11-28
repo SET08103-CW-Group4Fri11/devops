@@ -61,6 +61,13 @@ jobs:
         # Runs docker compose up but stops all containers when any container stops, which will happen with the app container first
       - name: Run Docker compose
         run: docker compose up -d
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+         repo_token: "${{ secrets.GITHUB_TOKEN }}"
+         prerelease: false
+         automatic_release_tag: "latest"
+         files: |
+           ./target/*.jar
       - name: View logs
         run: docker logs devops-container
       - name: Stop containers
